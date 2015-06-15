@@ -6,7 +6,7 @@
 	} else if (typeof exports === 'object') {
 		module.exports = factory();
 	} else {
-		root.H5ClientCache = factory();
+		root.WebStorageCache = factory();
 	}
 	
 }(this, function () {
@@ -58,9 +58,9 @@
 	}
 	
 	/**
-	 *	 ClientCache Constructor
+	 *	 Cache Constructor
 	 */
-	function ClientCacheConstructor (options) {
+	function CacheConstructor (options) {
 		
 		// default options
 		var defaults = {
@@ -100,7 +100,7 @@
 		
 	}
 	
-	ClientCacheConstructor.prototype = {
+	CacheConstructor.prototype = {
 		set: function() {},
 		get: function() {},
 		add: function() {},
@@ -109,6 +109,6 @@
 		clear: function() {}	
 	};
 	
-	return ClientCacheConstructor;
+	return CacheConstructor;
 	
 }));
