@@ -6,7 +6,7 @@
 	} else if (typeof exports === 'object') {
 		module.exports = factory();
 	} else {
-		root.WebStorageCache = factory();
+		root.H5ClientCache = factory();
 	}
 	
 }(this, function () {
@@ -34,9 +34,10 @@
 	/**
 	 * https://github.com/gsklee/ngStorage/blob/master/ngStorage.js#L52
 	 * 
-	 * When Safari (OS X or iOS) is in private browsing mode, it appears as though localStorage
-     * is available, but trying to call .setItem throws an exception below:
-     * "QUOTA_EXCEEDED_ERR: DOM Exception 22: An attempt was made to add something to storage that exceeded the quota."
+	 * When Safari (OS X or iOS) is in private browsing mode, it appears as
+	 * though localStorage is available, but trying to call .setItem throws an
+	 * exception below: "QUOTA_EXCEEDED_ERR: DOM Exception 22: An attempt was
+	 * made to add something to storage that exceeded the quota."
 	 */
 	function _isSupported (storage) {
 		
@@ -58,9 +59,9 @@
 	}
 	
 	/**
-	 *	 Cache Constructor
+	 * ClientCache Constructor
 	 */
-	function CacheConstructor (options) {
+	function ClientCacheConstructor (options) {
 		
 		// default options
 		var defaults = {
@@ -82,7 +83,8 @@
 			    serialize: function(item) {
 			      return isObject(item) ? JSON.stringify(item) : item;
 			    },
-			    // fix for "illegal access" error on Android when JSON.parse is passed null
+			    // fix for "illegal access" error on Android when JSON.parse is
+				// passed null
 			    deserialize: function (data) {
 			      return data && JSON.parse(data);
 			    }
@@ -100,7 +102,7 @@
 		
 	}
 	
-	CacheConstructor.prototype = {
+	ClientCacheConstructor.prototype = {
 		set: function() {},
 		get: function() {},
 		add: function() {},
@@ -109,6 +111,6 @@
 		clear: function() {}	
 	};
 	
-	return CacheConstructor;
+	return ClientCacheConstructor;
 	
 }));
