@@ -4,7 +4,8 @@
 ```javascript
   var wsCache = new WebStorageCache();
   
-  wsCache.set('key', 'val', 1);
+  //set 'wqteam' at 'username', expired in 100 seconds
+  wsCache.set('username', 'wqteam', 100);
   
   
 ```
