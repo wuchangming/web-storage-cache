@@ -42,20 +42,17 @@
 	function _isSupported (storage) {
 		
 		if (storage && storage.setItem ) {
-			
-			 var key = '__' + Math.round(Math.random() * 1e7);
-
-             try {
-            	 storage.setItem(key, key);
-            	 storage.removeItem(key);
-             } catch (err) {
-                 supported = false;
-                 _printLog (err);
-             }
+			var key = '__' + Math.round(Math.random() * 1e7);
+	       	try {
+	       		storage.setItem(key, key);
+	        	storage.removeItem(key);
+	       	} catch (err) {
+	       		supported = false;
+	       		_printLog (err);
+	       	}
 		} else {
 			return !!storage;
 		}
-		
 	}
 	
 	/**
