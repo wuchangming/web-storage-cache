@@ -1,4 +1,4 @@
-# webStorageCache
+# WebStorageCache
 
 # usage
 ```javascript
