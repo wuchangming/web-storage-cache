@@ -10,6 +10,13 @@
   // get 'username' 
   wsCache.get('username');
   
+  // cache an object literal - default uses JSON.stringify under the hood
+  wsCache.set('user', { name: 'wu', organization: 'wqteam'});
+  
+  // Get the cache object - default uses JSON.parse under the hood
+  var user = wsCache.get('user');
+  alert(user.name + ' belong to ' + user.organization);
+  
   // delete 'username'
   wsCache.delete('username');
   
