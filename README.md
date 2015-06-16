@@ -1,6 +1,6 @@
 # webStorageCache
 
-## usage
+# usage
 ```javascript
   var wsCache = new WebStorageCache();
   
