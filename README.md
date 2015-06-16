@@ -1,5 +1,5 @@
 # WebStorageCache
-----
+
   WebStorageCache designed according to [Storage API](http://www.w3.org/TR/webstorage/#storage).
 
 # Usage
@@ -36,5 +36,5 @@
   
 ```
 # API
-----
+
 
