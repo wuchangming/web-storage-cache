@@ -1,8 +1,9 @@
 # WebStorageCache
-
+-----------------
   WebStorageCache designed according to [Storage API](http://www.w3.org/TR/webstorage/#storage).
 
-# usage
+# Usage
+-------
 ```javascript
   var wsCache = new WebStorageCache();
   
@@ -35,5 +36,6 @@
   wsCache.replace('username', 'new wqteam', 1000);
   
 ```
-
+# API
+-----
 
