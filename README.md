@@ -1,2 +1,8 @@
-# H5ClientCache
+# webStorageCache
+
+## usage
+```javascript
+
+```
+
 
