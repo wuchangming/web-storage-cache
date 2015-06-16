@@ -37,4 +37,14 @@
 ```
 # API
 
+## Constructor
+```javascript
+var wsCache = new WebStorageCache({
+  storage: 'localStorage', //[option] default 'localStorage'.
+  serializer: serializer, //[option] defalut `serialize` uses JSON.stringify under the hood, 
+                          // and 'deserialize' usesJSON.parse under the hood.
+  exp: 60 * 60 //[option] An expiration time, in seconds. default 3600.
+}); 
+```
+
 
