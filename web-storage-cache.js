@@ -146,7 +146,7 @@
 
 			CacheConstructor.prototype = CacheAPIImpl;
 
-		} else {  // if not support, rewrite all functions without do anything
+		} else {  // if not support, rewrite all functions without doing anything
 			CacheConstructor.prototype = CacheAPI;
 		}
 		
