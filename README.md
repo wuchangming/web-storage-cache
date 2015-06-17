@@ -34,10 +34,6 @@
   // Replace the key's data item in cache, success only when the key's data item is exists in cache.
   wsCache.update('username', 'new wqteam', 1000);
   
-  // Return previous value. 
-  // Useful for getting a diff between versions of value, or getting back to a valid state after an error occurs.
-  wsCache.previous('username');
-  
 ```
 # API
 
