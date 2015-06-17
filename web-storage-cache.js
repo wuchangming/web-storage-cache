@@ -63,7 +63,7 @@
 		return storage;
 	}
 
-	// cache api 
+	// cache api implement
 	var CacheAPI = {
 
 		set: function (key, value, exp) {},
