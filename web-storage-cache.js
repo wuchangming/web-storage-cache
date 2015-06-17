@@ -1,5 +1,3 @@
-"use strict"
-
 ;(function (root, factory) {
 	if (typeof define === 'function' && define.amd) {
 		define(factory);
@@ -9,6 +7,9 @@
 		root.WebStorageCache = factory();
 	}
 }(this, function () {
+	"use strict"
+
+	var _maxExpireDate = new Date('Fri, 31 Dec 9999 23:59:59 UTC');
 
 	function _extend(obj, props) {
 		for (var key in props) obj[key] = props[key]
@@ -63,10 +64,17 @@
 		return storage;
 	}
 
-	// cache api implement
+	// cache item constructor
+	function CacheItemConstructor (value, exp) {
+		this.createTime = (new Date()).getTime();
+		this.expires = exp;
+		this.value = value;
+	}
+
+	// cache api 
 	var CacheAPI = {
 
-		set: function (key, value, exp) {},
+		set: function (key, value, options) {},
 
 		get: function (key) {},
 
@@ -74,40 +82,40 @@
 		// Clear all keys
 		clear: function () {},
 		//Add key-value item to memcached, success only when the key is not exists in memcached.
-		add: function (key, exp) {},
+		add: function (key, options) {},
 		// Replace the key's data item in cache, success only when the key's data item is exists in cache.
-		update: function (key, value, exp) {},
-		// Return previous value. 
-  		// Useful for getting a diff between versions of value, or getting back to a valid state after an error occurs.
-		previous: function (key) {},
+		update: function (key, value, options) {},
 		// Set a new expiration time for an existing key.
-		touch: function (key, exp) {}
+		touch: function (key, options) {}
 	};
 
 	// cache api 
 	var CacheAPIImpl = {
 
-		set: function(key, val) {
-			var storage = this.storage;
-			if (val === undefined) { return storage.delete(key) }
-			storage.setItem(key, this.serializer.serialize(val)))
+		set: function(key, val, options) {
+			
+			if (val === undefined) {
+				return this.delete(key) 
+			}
+
+			var value = this.serializer.serialize(val);
+
+			var cacheItem;
+
+			this.storage.setItem(key, cacheItem);
 			return val
 		},
-
 		get: function (key) {},
 
 		delete: function (key) {},
 		// Clear all keys
 		clear: function () {},
 		//Add key-value item to memcached, success only when the key is not exists in memcached.
-		add: function (key, exp) {},
+		add: function (key, options) {},
 		// Replace the key's data item in cache, success only when the key's data item is exists in cache.
-		update: function (key, value, exp) {},
-		// Return previous value. 
-  		// Useful for getting a diff between versions of value, or getting back to a valid state after an error occurs.
-		previous: function (key) {},
+		update: function (key, value, options) {},
 		// Set a new expiration time for an existing key.
-		touch: function (key, exp) {}
+		touch: function (key, options) {}
 	};
 	
 	/**
