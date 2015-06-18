@@ -9,7 +9,7 @@
   // cache 'wqteam' at 'username', expired in 100 seconds
   wsCache.set('username', 'wqteam', {exp : 100});
   
-  // deadline in  new Date('2015 5 18')
+  // deadline in  May 18 2015
   wsCache.set('username', 'wqteam', {exp : new Date('2015 5 18')});
   
   // get 'username' 
