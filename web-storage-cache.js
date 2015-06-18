@@ -156,6 +156,10 @@
 	var CacheAPIImpl = {
 
 		set: function(key, val, options) {
+
+			if (typeof key != 'string') {
+				throw new Error('[key] type now is ' + typeof key + '. cache [key] type must be "string"');
+			}
 			
 			options = _extend({}, options);
 
