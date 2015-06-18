@@ -1,5 +1,5 @@
 /*
- * Cookies.js - 1.2.1
+ * WebStorageCache - 0.0.1
  * https://github.com/WQTeam/web-storage-cache
  *
  * This is free and unencumbered software released into the public domain.
