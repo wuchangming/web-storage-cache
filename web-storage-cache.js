@@ -1,4 +1,10 @@
-;(function (root, factory) {
+/*
+ * Cookies.js - 1.2.1
+ * https://github.com/WQTeam/web-storage-cache
+ *
+ * This is free and unencumbered software released into the public domain.
+ */
+(function (root, factory) {
 	if (typeof define === 'function' && define.amd) {
 		define(factory);
 	} else if (typeof exports === 'object') {
