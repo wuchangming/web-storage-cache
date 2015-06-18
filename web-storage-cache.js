@@ -17,7 +17,9 @@
 
 	var _maxExpireDate = new Date('Fri, 31 Dec 9999 23:59:59 UTC');
 
-	function _extend(obj, props) {
+	var _cacheItemStringPrefix = 'WebStorageCache.';
+
+	function _extend (obj, props) {
 		for (var key in props) obj[key] = props[key]
 		return obj;
 	}
@@ -29,7 +31,7 @@
 	// https://github.com/jeromegn/Backbone.localStorage/blob/master/backbone.localStorage.js#L63
 	var defaultSerializer = {
 		serialize: function (item) {
-			return isObject(item) ? JSON.stringify(item) : item;
+			return JSON.stringify(item);
 		},
 		// fix for "illegal access" error on Android when JSON.parse is
 		// passed null
@@ -62,7 +64,7 @@
 	}
 
 	// get storage instance
-	function _getStorageInstance(storage) {
+	function _getStorageInstance (storage) {
 		var type = typeof storage;
 		if (type === 'string') {
 			return window[storage];
@@ -70,10 +72,64 @@
 		return storage;
 	}
 
+	function _isValidDate (date) {
+		return Object.prototype.toString.call(date) === '[object Date]' && !isNaN(date.getTime());
+	};
+
+	function _getExpiresDate (expires, now) {
+		now = now || new Date();
+
+		if (typeof expires === 'number') {
+			expires = expires === Infinity ?
+				_maxExpireDate : new Date(now.getTime() + expires * 1000);
+		} else if (typeof expires === 'string') {
+			expires = new Date(expires);
+		}
+
+		if (expires && !_isValidDate(expires)) {
+			throw new Error('`expires` parameter cannot be converted to a valid Date instance');
+		}
+
+		return expires;
+	};
+
+	// http://crocodillon.com/blog/always-catch-localstorage-security-and-quota-exceeded-errors
+	function _isQuotaExceeded(e) {
+		var quotaExceeded = false;
+		if (e) {
+			if (e.code) {
+				switch (e.code) {
+				case 22:
+					quotaExceeded = true;
+					break;
+				case 1014:
+					// Firefox
+					if (e.name === 'NS_ERROR_DOM_QUOTA_REACHED') {
+						quotaExceeded = true;
+					}
+				break;
+				}
+			} else if (e.number === -2147024882) {
+			// Internet Explorer 8
+			quotaExceeded = true;
+			}
+		}
+		return quotaExceeded;
+	}
+
+	// default handle Quota Exceed
+	function defaultQuotaExceedHandler (key, val, e) {
+		console.error('Quota exceeded!'); 
+		// TODO
+	}
+
+
 	// cache item constructor
 	function CacheItemConstructor (value, exp) {
 		this.createTime = (new Date()).getTime();
-		this.expires = exp;
+		exp = exp || _maxExpireDate;
+		var expires = _getExpiresDate(exp);
+		this.expires = expires.getTime();
 		this.value = value;
 	}
 
@@ -90,8 +146,9 @@
 		//Add key-value item to memcached, success only when the key is not exists in memcached.
 		add: function (key, options) {},
 		// Replace the key's data item in cache, success only when the key's data item is exists in cache.
-		update: function (key, value, options) {},
-		// Set a new expiration time for an existing key.
+		replace: function (key, value, options) {},
+		// Set a new options for an existing key.
+		// 
 		touch: function (key, options) {}
 	};
 
@@ -100,28 +157,75 @@
 
 		set: function(key, val, options) {
 			
+			options = _extend({}, options);
+
 			if (val === undefined) {
 				return this.delete(key) 
 			}
 
 			var value = this.serializer.serialize(val);
 
-			var cacheItem;
+			var cacheItem = new CacheItemConstructor(value, options.exp);
+			try {
+				this.storage.setItem(key, defaultSerializer.serialize(cacheItem));
+			} catch (e) {
+				console.error(e);
+				if (_isQuotaExceeded(e)) { //data wasn't successfully saved due to quota exceed so throw an error
+					this.quotaExceedHandler(key, value, e);
+				}
+			}
 
-			this.storage.setItem(key, cacheItem);
 			return val
 		},
-		get: function (key) {},
+		get: function (key) {
 
-		delete: function (key) {},
-		// Clear all keys
-		clear: function () {},
-		//Add key-value item to memcached, success only when the key is not exists in memcached.
-		add: function (key, options) {},
-		// Replace the key's data item in cache, success only when the key's data item is exists in cache.
-		update: function (key, value, options) {},
-		// Set a new expiration time for an existing key.
-		touch: function (key, options) {}
+			var cacheItem = defaultSerializer.deserialize(this.storage.getItem(key));
+			if(cacheItem != null) {
+				var timeNow = (new Date()).getTime();
+				if(timeNow < cacheItem['expires']) {
+					var value = cacheItem['value'];
+					return this.serializer.deserialize(value);
+				} else {
+					this.delete(key);
+				}
+			} 
+			return null;
+		},
+
+		delete: function (key) {
+			this.storage.removeItem(key);
+		},
+
+		clear: function () {
+			this.storage.clear();
+		},
+
+		add: function (key, value, options) {
+			if(this.storage.getItem(key) == null) {
+				this.set(key, val, options);
+			};
+		},
+
+		replace: function (key, value, options) {
+			if(this.storage.getItem(key) != null) {
+				this.set(key, val, options);
+			};
+		},
+
+		touch: function (key, exp) {
+			var cacheItem = this.get(key);
+			if(cacheItem != null) {
+				cacheItem['expires'] = _getExpiresDate(exp);
+				try {
+					this.storage.setItem(key, defaultSerializer.serialize(cacheItem));
+				} catch (e) {
+					console.error(e);
+					if (_isQuotaExceeded(e)) { //data wasn't successfully saved due to quota exceed so throw an error
+						this.quotaExceedHandler(key, value, e);
+					}
+				}
+			}
+		}
 	};
 	
 	/**
@@ -133,7 +237,8 @@
 		var defaults = {
 			storage: 'localStorage',
 			serializer : defaultSerializer, // defalut serializer
-			exp: 60 * 60  //An expiration time, in seconds. default 3600.
+			exp: Infinity,  //An expiration time, in seconds. default never .
+			quotaExceedHandler: defaultQuotaExceedHandler
 		};
 		
 		var opt = _extend(defaults, options);
@@ -150,10 +255,10 @@
 
 			this.serializer = opt.serializer;
 
-			CacheConstructor.prototype = CacheAPIImpl;
+			_extend(this, CacheAPIImpl);
 
 		} else {  // if not support, rewrite all functions without doing anything
-			CacheConstructor.prototype = CacheAPI;
+			_extend(this, CacheAPI);
 		}
 		
 	}
