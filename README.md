@@ -46,7 +46,8 @@ var wsCache = new WebStorageCache({
   storage: 'localStorage', //[option] default 'localStorage'.
   serializer: serializer, //[option] defalut `serialize` uses JSON.stringify under the hood, 
                           // and 'deserialize' uses JSON.parse under the hood.
-  exp: Infinity //[option] //An expiration time, in seconds. default never .
+  exp: Infinity, //[option] //An expiration time, in seconds. default never .
+  quotaExceedHandler: quotaExceedHandler //[option] handler quotaExceed Error. default do noting.
 }); 
 ```
 
