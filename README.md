@@ -7,7 +7,7 @@
   var wsCache = new WebStorageCache();
   
   // cache 'wqteam' at 'username', expired in 100 seconds
-  wsCache.set('username', 'wqteam', 100);
+  wsCache.set('username', 'wqteam', {exp : 100});
   
   // get 'username' 
   wsCache.get('username');
@@ -26,13 +26,13 @@
   wsCache.clear();
   
   // Set a new expiration time for an existing key.
-  wsCache.touch('username', 1000);
+  wsCache.touch('username',  {exp : 1000});
   
   // Add key-value item to cache, success only when the key is not exists in cache
   wsCache.add('username2', 'wqteam', 1000);
   
   // Replace the key's data item in cache, success only when the key's data item is exists in cache.
-  wsCache.update('username', 'new wqteam', 1000);
+  wsCache.replace('username', 'new wqteam', {exp : 1000});
   
 ```
 # API
@@ -42,8 +42,8 @@
 var wsCache = new WebStorageCache({
   storage: 'localStorage', //[option] default 'localStorage'.
   serializer: serializer, //[option] defalut `serialize` uses JSON.stringify under the hood, 
-                          // and 'deserialize' usesJSON.parse under the hood.
-  exp: 60 * 60 //[option] An expiration time, in seconds. default 3600.
+                          // and 'deserialize' uses JSON.parse under the hood.
+  exp: Infinity //[option] //An expiration time, in seconds. default never .
 }); 
 ```
 
