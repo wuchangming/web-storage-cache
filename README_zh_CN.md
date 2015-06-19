@@ -1,5 +1,9 @@
 # WebStorageCache [Draft]
 
+   <a href='https://gitter.im/WQTeam/web-storage-cache'>
+    <img src='https://badges.gitter.im/Join%20Chat.svg' alt='Gitter Chat' />
+  </a>
+
   WebStorageCache 基于接口 [Storage API](http://www.w3.org/TR/webstorage/#storage).
 
 # 实例
