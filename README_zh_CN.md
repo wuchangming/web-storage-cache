@@ -2,7 +2,7 @@
 
   WebStorageCache 基于接口 [Storage API](http://www.w3.org/TR/webstorage/#storage).
 
-# 用法
+# 实例
 ```javascript
   var wsCache = new WebStorageCache();
   
