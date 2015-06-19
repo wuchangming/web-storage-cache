@@ -44,17 +44,26 @@
   // Replace the key's data item in cache, success only when the key's data item is exists in cache.
   wsCache.replace('username', 'new wqteam', {exp : 1000});
   
+  // check if the 'storage' supported by the user browser. if not all the  WebStorageCache API method will do noting.
+  wsCache.isSupported();
+  
 ```
 # API
 
 ## Constructor
 ```javascript
 var wsCache = new WebStorageCache({
-  storage: 'localStorage', //[option] default 'localStorage'.
-  serializer: serializer, //[option] defalut `serialize` uses JSON.stringify under the hood, 
-                          // and 'deserialize' uses JSON.parse under the hood.
-  exp: Infinity, //[option] //An expiration time, in seconds. default never .
-  quotaExceedHandler: quotaExceedHandler //[option] handler quotaExceed Error. default do noting.
+  // [option] 'localStorage', 'sessionStorage', window.localStorage, window.sessionStorage or 
+  // other storage instance implement [Storage API].
+  // default 'localStorage'.
+  storage: 'localStorage',
+  // [option] defalut `serialize` uses JSON.stringify under the hood, 
+  // and 'deserialize' uses JSON.parse under the hood.
+  serializer: serializer,
+  // [option] //An expiration time, in seconds. default never .
+  exp: Infinity,
+  // [option] handler quotaExceed Error. default do noting.
+  quotaExceedHandler: quotaExceedHandler 
 }); 
 ```
 
