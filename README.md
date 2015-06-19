@@ -1,6 +1,8 @@
 # WebStorageCache [Draft]
 
   WebStorageCache backed by [Storage API](http://www.w3.org/TR/webstorage/#storage).
+  [中文版](https://github.com/WQTeam/web-storage-cache/blob/master/README_zh_CN.md)
+  
 
 # Usage
 ```javascript
