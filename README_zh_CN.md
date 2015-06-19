@@ -41,17 +41,27 @@
   // 如果缓存中有key为username的缓存，则替换为新值。反之什么都不做
   wsCache.replace('username', 'new wqteam', {exp : 1000});
   
+  // 检查当前选择作为缓存的storage是否被用户浏览器支持。如果不支持调用WebStorageCache API提供的方法将什么都不做。
+  wsCache.isSupported();
+  
 ```
 # API
 
 ## Constructor
 ```javascript
 var wsCache = new WebStorageCache({
-  storage: 'localStorage', //[option] default 'localStorage'.
-  serializer: serializer, //[option] defalut `serialize` uses JSON.stringify under the hood, 
-                          // and 'deserialize' uses JSON.parse under the hood.
-  exp: Infinity, //[option] //An expiration time, in seconds. default never .
-  quotaExceedHandler: quotaExceedHandler //[option] handler quotaExceed Error. default do noting.
+  // [可选] 'localStorage', 'sessionStorage', window.localStorage, window.sessionStorage 
+  //        或者其他实现了 [Storage API] 的storage实例.
+  //        默认 'localStorage'.
+  storage: 'localStorage',
+  // [可选] 默认的 序列化器 
+  //        序列化方法使用 JSON.stringify, 
+  //        反序列化方法使用 JSON.parse under.
+  serializer: serializer, 
+  //[可选]  公共超时事件设置。默认无限大
+  exp: Infinity,
+  //[可选]  设置处理容量溢出异常Handler。默认什么都不做
+  quotaExceedHandler: quotaExceedHandler 
 }); 
 ```
 
