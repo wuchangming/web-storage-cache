@@ -19,15 +19,6 @@
 
 	var _cacheItemStringPrefix = 'WebStorageCache.';
 
-	function _extend (obj, props) {
-		for (var key in props) obj[key] = props[key]
-		return obj;
-	}
-	
-	function isObject(item) {
-		return item === Object(item);
-	}
-
 	// https://github.com/jeromegn/Backbone.localStorage/blob/master/backbone.localStorage.js#L63
 	var defaultSerializer = {
 		serialize: function (item) {
@@ -39,6 +30,15 @@
 			return data && JSON.parse(data);
 		}
 	};
+
+	function _extend (obj, props) {
+		for (var key in props) obj[key] = props[key]
+		return obj;
+	}
+	
+	function isObject(item) {
+		return item === Object(item);
+	}
 		
 	/**
 	 * https://github.com/gsklee/ngStorage/blob/master/ngStorage.js#L52
@@ -259,13 +259,13 @@
 
 			this.serializer = opt.serializer;
 
-			_extend(this, CacheAPIImpl);
-
 		} else {  // if not support, rewrite all functions without doing anything
 			_extend(this, CacheAPI);
 		}
 		
 	}
+
+	CacheConstructor.prototype = CacheAPIImpl;
 	
 	return CacheConstructor;
 	
