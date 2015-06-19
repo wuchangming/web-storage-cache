@@ -4,7 +4,7 @@
     <img src='https://badges.gitter.im/Join%20Chat.svg' alt='Gitter Chat' />
   </a>
 
-  WebStorageCache 基于接口 [Storage API](http://www.w3.org/TR/webstorage/#storage)。 对storage进行了封装，添加了超时时间，序列化方法。客户端浏览器可以像cookie一样使用'localStorage'或者'sessionStorage'进行数据缓存。
+  WebStorageCache 基于接口 [Storage API](http://www.w3.org/TR/webstorage/#storage)。 对storage进行了封装，添加了超时时间，序列化方法。客户端浏览器可以像cookie一样使用。用'localStorage'或者'sessionStorage'进行数据缓存。
 
 # 实例
 ```javascript
