@@ -251,7 +251,9 @@
 		
 		var isSupported = _isStorageSupported(storage);
 		
-		this.isSupported = isSupported;
+		this.isSupported = function () {
+			return isSupported;
+		};
 		
 		if (isSupported) {
 
