@@ -1,6 +1,6 @@
 # WebStorageCache [Draft]
 
-  WebStorageCache designed according to [Storage API](http://www.w3.org/TR/webstorage/#storage).
+  WebStorageCache backed by [Storage API](http://www.w3.org/TR/webstorage/#storage).
 
 # Usage
 ```javascript
