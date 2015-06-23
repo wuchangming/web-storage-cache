@@ -4,7 +4,7 @@
     <img src='https://badges.gitter.im/Join%20Chat.svg' alt='Gitter Chat' />
   </a>
 
-  WebStorageCache backed by [Storage API](http://www.w3.org/TR/webstorage/#storage).
+  WebStorageCache backed by [storage interface](http://www.w3.org/TR/webstorage/#storage).
   
   [中文版](https://github.com/WQTeam/web-storage-cache/blob/master/README_zh_CN.md)
   
