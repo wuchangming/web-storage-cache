@@ -161,6 +161,8 @@
 				throw new Error('[key] type now is ' + typeof key + '. cache [key] type must be "string"');
 			}
 			
+			key = _cacheItemStringPrefix + key;
+			
 			options = _extend({}, options);
 
 			if (val === undefined) {
@@ -182,7 +184,7 @@
 			return val
 		},
 		get: function (key) {
-
+			key = _cacheItemStringPrefix + key;
 			var cacheItem = defaultSerializer.deserialize(this.storage.getItem(key));
 			if(cacheItem != null) {
 				var timeNow = (new Date()).getTime();
@@ -197,6 +199,7 @@
 		},
 
 		delete: function (key) {
+			key = _cacheItemStringPrefix + key;
 			this.storage.removeItem(key);
 		},
 
@@ -205,18 +208,21 @@
 		},
 
 		add: function (key, value, options) {
+			key = _cacheItemStringPrefix + key;
 			if(this.storage.getItem(key) == null) {
 				this.set(key, val, options);
 			};
 		},
 
 		replace: function (key, value, options) {
+			key = _cacheItemStringPrefix + key;
 			if(this.storage.getItem(key) != null) {
 				this.set(key, val, options);
 			};
 		},
 
 		touch: function (key, exp) {
+			key = _cacheItemStringPrefix + key;
 			var cacheItem = this.get(key);
 			if(cacheItem != null) {
 				cacheItem['expires'] = _getExpiresDate(exp);
