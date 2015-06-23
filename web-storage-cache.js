@@ -33,10 +33,6 @@
 		for (var key in props) obj[key] = props[key]
 		return obj;
 	}
-	
-	function isObject(item) {
-		return item === Object(item);
-	}
 		
 	/**
 	 * https://github.com/gsklee/ngStorage/blob/master/ngStorage.js#L52
@@ -72,7 +68,7 @@
 
 	function _isValidDate (date) {
 		return Object.prototype.toString.call(date) === '[object Date]' && !isNaN(date.getTime());
-	};
+	}
 
 	function _getExpiresDate (expires, now) {
 		now = now || new Date();
@@ -89,7 +85,7 @@
 		}
 
 		return expires;
-	};
+	}
 
 	// http://crocodillon.com/blog/always-catch-localstorage-security-and-quota-exceeded-errors
 	function _isQuotaExceeded(e) {
@@ -155,14 +151,14 @@
 
 		set: function(key, val, options) {
 
-			if (typeof key != 'string') {
+			if (typeof key !== 'string') {
 				throw new Error('[key] type now is ' + typeof key + '. cache [key] type must be "string"');
 			}
 			
 			options = _extend({}, options);
 
 			if (val === undefined) {
-				return this.delete(key) 
+				return this.delete(key);
 			}
 
 			var value = this.serializer.serialize(val);
@@ -177,7 +173,7 @@
 				}
 			}
 
-			return val
+			return val;
 		},
 		get: function (key) {
 			var cacheItem = defaultSerializer.deserialize(this.storage.getItem(key));
@@ -204,7 +200,7 @@
 		add: function (key, value, options) {
 			if(this.storage.getItem(key) == null) {
 				this.set(key, val, options);
-			};
+			}
 		},
 
 		replace: function (key, value, options) {
