@@ -44,7 +44,7 @@
   // Replace the key's data item in cache, success only when the key's data item is exists in cache.
   wsCache.replace('username', 'new wqteam', {exp : 1000});
   
-  // check if the 'storage' supported by the user browser. if not all the  WebStorageCache API method will do noting.
+  // check if the 'storage' supported by the user browser. if it`s not supported by the user browser all the  WebStorageCache API methods will do noting.
   wsCache.isSupported();
   
 ```
