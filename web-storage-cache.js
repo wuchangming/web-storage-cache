@@ -13,7 +13,7 @@
 		root.WebStorageCache = factory();
 	}
 }(this, function () {
-	"use strict"
+	"use strict";
 
 	var _maxExpireDate = new Date('Fri, 31 Dec 9999 23:59:59 UTC');
 
