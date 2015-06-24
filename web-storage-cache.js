@@ -152,7 +152,8 @@
 		set: function(key, val, options) {
 
 			if (typeof key !== 'string') {
-				throw new Error('[key] type now is ' + typeof key + '. cache [key] type must be "string"');
+				console.warn(key + ' used as a key, but it is not a string.');
+				key = String(key);
 			}
 			
 			options = _extend({}, options);
