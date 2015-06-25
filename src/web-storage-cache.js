@@ -113,12 +113,15 @@
 	// default handle Quota Exceed
 	function defaultQuotaExceedHandler (key, val, options, e) {
 		console.warn('Quota exceeded!');
-		var deleteKeys = this.deleteAllExpires();
-		console.warn('delete all expires CacheItem : [' + deleteKeys + '] and try execute `set` method again!');
-		try {
-			this.set(key, val, options);
-		} catch (e) {
-			console.warn(e);
+		if (options && options.force === true) {
+			var deleteKeys = this.deleteAllExpires();
+			console.warn('delete all expires CacheItem : [' + deleteKeys + '] and try execute `set` method again!');
+			try {
+				options.force = false;
+				this.set(key, val, options);
+			} catch (e) {
+				console.warn(e);
+			}	
 		}
 	}
 
@@ -163,7 +166,7 @@
 				key = String(key);
 			}
 			
-			options = _extend({}, options);
+			options = _extend({force: true}, options);
 
 			if (val === undefined) {
 				return this.delete(key);
@@ -247,9 +250,10 @@
 				try {
 					this.storage.setItem(key, defaultSerializer.serialize(cacheItem));
 				} catch (e) {
-					console.error(e);
 					if (_isQuotaExceeded(e)) { //data wasn't successfully saved due to quota exceed so throw an error
 						this.quotaExceedHandler(key, value, options, e);
+					} else {
+						console.error(e);
 					}
 				}
 			}
@@ -284,6 +288,8 @@
 			this.storage = storage;
 
 			this.serializer = opt.serializer;
+			
+			this.quotaExceedHandler = opt.quotaExceedHandler;
 
 		} else {  // if not support, rewrite all functions without doing anything
 			_extend(this, CacheAPI);
