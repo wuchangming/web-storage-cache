@@ -178,9 +178,10 @@
 			try {
 				this.storage.setItem(key, defaultSerializer.serialize(cacheItem));
 			} catch (e) {
-				console.error(e);
 				if (_isQuotaExceeded(e)) { //data wasn't successfully saved due to quota exceed so throw an error
 					this.quotaExceedHandler(key, value, options, e);
+				} else {
+					console.error(e);
 				}
 			}
 
