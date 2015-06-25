@@ -1,0 +1,23 @@
+{
+  "name": "web-storage-cache",
+  "author": "wuchangming",
+  "license": "MIT",
+  "description": "web storage, improved.",
+  "keywords": [
+    "localstorage",
+    "storage",
+    "expires"
+  ],
+  "version": "0.0.1",
+  "homepage": "https://github.com/WQTeam/web-storage-cache",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/WQTeam/web-storage-cache.git"
+  },
+  "browser": "src/web-storage-cache.js",
+  "main": "src/web-storage-cache.js",
+  "licence": "MIT",
+  "bugs": {
+    "url": "https://github.com/WQTeam/web-storage-cache/issues"
+  }
+}
