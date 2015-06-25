@@ -61,9 +61,9 @@ var wsCache = new WebStorageCache({
   //        序列化方法使用 JSON.stringify, 
   //        反序列化方法使用 JSON.parse under.
   serializer: serializer, 
-  //[可选]  公共超时事件设置。默认无限大
+  // [可选]  公共超时事件设置。默认无限大
   exp: Infinity,
-  //[可选]  设置处理容量溢出异常Handler。默认会遍历全部key，删除超时的项，再执行一遍set方法。
+  // [可选]  设置处理容量溢出异常Handler。默认会遍历全部key，删除超时的项，再执行一遍set方法。
   quotaExceedHandler: quotaExceedHandler 
 }); 
 ```

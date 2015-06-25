@@ -33,7 +33,7 @@
 		for (var key in props) obj[key] = props[key]
 		return obj;
 	}
-		
+
 	/**
 	 * https://github.com/gsklee/ngStorage/blob/master/ngStorage.js#L52
 	 * 
@@ -255,7 +255,7 @@
 			}
 		}
 	};
-	
+
 	/**
 	 * Cache Constructor
 	 */
@@ -294,5 +294,5 @@
 	CacheConstructor.prototype = CacheAPIImpl;
 	
 	return CacheConstructor;
-	
+
 }));
