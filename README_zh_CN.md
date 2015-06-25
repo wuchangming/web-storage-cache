@@ -30,7 +30,7 @@
   wsCache.delete('username');
   
   // 手工删除所有超时CacheItem,
-  wsCache.deleteAllExpireCacheItems();
+  wsCache.deleteAllExpires();
   
   // 清除客户端中所有缓存
   wsCache.clear();
