@@ -114,7 +114,7 @@
 	// default handle Quota Exceed
 	function defaultQuotaExceedHandler (key, val, options, e) {
 		console.warn('Quota exceeded!');
-		var deleteKeys = this.deleteAllExpriesCacheItem();
+		var deleteKeys = this.deleteAllExpires();
 		console.warn('delete all expires CacheItem : [' + deleteKeys + '] and try execute `set` method again!');
 		try {
 			this.set(key, val, options);
@@ -142,7 +142,7 @@
 
 		delete: function (key) {},
 		// try the best to clean All expries CacheItem.
-		deleteAllExpriesCacheItem: function() {},
+		deleteAllExpires: function() {},
 		// Clear all keys
 		clear: function () {},
 		//Add key-value item to memcached, success only when the key is not exists in memcached.
@@ -203,7 +203,7 @@
 			return key;
 		},
 
-		deleteAllExpriesCacheItem: function() {
+		deleteAllExpires: function() {
 			var length = this.storage.length;
 			var deleteKeys = [];
 			for (var i = 0; i < length; i++) {
