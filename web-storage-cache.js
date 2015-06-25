@@ -43,16 +43,15 @@
 	 * made to add something to storage that exceeded the quota."
 	 */
 	function _isStorageSupported (storage) {
-		var supported = false;
+		var supported = true;
 		if (storage && storage.setItem ) {
 			var key = '__' + Math.round(Math.random() * 1e7);
-	       	try {
-	       		storage.setItem(key, key);
-	       		storage.removeItem(key);
-	       	} catch (err) {
-	       		supported = false;
-	       	}
-	       	supported = true;
+		       	try {
+		       		storage.setItem(key, key);
+		       		storage.removeItem(key);
+		       	} catch (err) {
+		       		supported = false;
+		       	}
 		}
 		return supported;
 	}
@@ -250,7 +249,7 @@
 				} catch (e) {
 					console.error(e);
 					if (_isQuotaExceeded(e)) { //data wasn't successfully saved due to quota exceed so throw an error
-						this.quotaExceedHandler(key, value, e);
+						this.quotaExceedHandler(key, value, options, e);
 					}
 				}
 			}
