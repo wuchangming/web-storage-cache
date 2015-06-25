@@ -32,6 +32,9 @@
   // delete 'username'
   wsCache.delete('username');
   
+  // manually delete all expires CacheItem. return deleted key's array.
+  wsCache.deleteAllExpriesCacheItem();
+  
   // Clear all keys
   wsCache.clear();
   
@@ -62,7 +65,7 @@ var wsCache = new WebStorageCache({
   serializer: serializer,
   // [option] //An expiration time, in seconds. default never .
   exp: Infinity,
-  // [option] handler quotaExceed Error. default do noting.
+  // [option] handler quotaExceed Error. default: try to delete all expires CacheItem, and execute 'set' method again.
   quotaExceedHandler: quotaExceedHandler 
 }); 
 ```
