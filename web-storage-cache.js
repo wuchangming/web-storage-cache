@@ -112,9 +112,15 @@
 	}
 
 	// default handle Quota Exceed
-	function defaultQuotaExceedHandler (key, val, e) {
-		console.error('Quota exceeded!'); 
-		// TODO
+	function defaultQuotaExceedHandler (key, val, options, e) {
+		console.warn('Quota exceeded!');
+		var deleteKeys = this.deleteAllExpriesCacheItem();
+		console.warn('delete all expires CacheItem : [' + deleteKeys + '] and try execute `set` method again!');
+		try {
+			this.set(key, val, options);
+		} catch (e) {
+			console.warn(e);
+		}
 	}
 
 
@@ -135,6 +141,8 @@
 		get: function (key) {},
 
 		delete: function (key) {},
+		// try the best to clean All expries CacheItem.
+		deleteAllExpriesCacheItem: function() {},
 		// Clear all keys
 		clear: function () {},
 		//Add key-value item to memcached, success only when the key is not exists in memcached.
@@ -170,7 +178,7 @@
 			} catch (e) {
 				console.error(e);
 				if (_isQuotaExceeded(e)) { //data wasn't successfully saved due to quota exceed so throw an error
-					this.quotaExceedHandler(key, value, e);
+					this.quotaExceedHandler(key, value, options, e);
 				}
 			}
 
@@ -192,6 +200,29 @@
 
 		delete: function (key) {
 			this.storage.removeItem(key);
+			return key;
+		},
+
+		deleteAllExpriesCacheItem: function() {
+			var length = this.storage.length;
+			var deleteKeys = [];
+			for (var i = 0; i < length; i++) {
+				var key = this.storage.key(i);
+				var cacheItem = null;
+				try {
+					cacheItem = defaultSerializer.deserialize(this.storage.getItem(key));
+				} catch (e) {}
+
+				if(cacheItem != null && cacheItem.expires != null) {
+					var timeNow = (new Date()).getTime();
+					if(timeNow >= cacheItem['expires']) {
+						this.delete(key);
+						deleteKeys.push(key);
+					}
+				} 
+				
+			};
+			return deleteKeys;
 		},
 
 		clear: function () {
