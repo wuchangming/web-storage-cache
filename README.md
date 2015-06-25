@@ -33,7 +33,7 @@
   wsCache.delete('username');
   
   // manually delete all expires CacheItem. return deleted key's array.
-  wsCache.deleteAllExpriesCacheItem();
+  wsCache.deleteAllExpiresCacheItem();
   
   // Clear all keys
   wsCache.clear();
