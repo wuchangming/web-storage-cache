@@ -209,6 +209,7 @@
 		deleteAllExpires: function() {
 			var length = this.storage.length;
 			var deleteKeys = [];
+			var _this = this;
 			for (var i = 0; i < length; i++) {
 				var key = this.storage.key(i);
 				var cacheItem = null;
@@ -219,12 +220,13 @@
 				if(cacheItem != null && cacheItem.expires != null) {
 					var timeNow = (new Date()).getTime();
 					if(timeNow >= cacheItem['expires']) {
-						this.delete(key);
 						deleteKeys.push(key);
 					}
-				} 
-				
+				}
 			};
+			deleteKeys.forEach(function(key) {
+				_this.delete(key);
+			});
 			return deleteKeys;
 		},
 
