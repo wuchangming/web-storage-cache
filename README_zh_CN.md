@@ -29,6 +29,9 @@
   // 删除缓存中 'username'
   wsCache.delete('username');
   
+  // 手工删除所有超时CacheItem,
+  wsCache.deleteAllExpriesCacheItem();
+  
   // 清除客户端中所有缓存
   wsCache.clear();
   
@@ -60,7 +63,7 @@ var wsCache = new WebStorageCache({
   serializer: serializer, 
   //[可选]  公共超时事件设置。默认无限大
   exp: Infinity,
-  //[可选]  设置处理容量溢出异常Handler。默认什么都不做
+  //[可选]  设置处理容量溢出异常Handler。默认会遍历全部key，删除超时的
   quotaExceedHandler: quotaExceedHandler 
 }); 
 ```
