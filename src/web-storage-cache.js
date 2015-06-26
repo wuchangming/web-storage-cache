@@ -272,8 +272,7 @@ function CacheConstructor (options) {
     var defaults = {
         storage: 'localStorage',
         serializer : defaultSerializer, // defalut serializer
-        exp: Infinity,  //An expiration time, in seconds. default never .
-        quotaExceedHandler: defaultQuotaExceedHandler
+        exp: Infinity  //An expiration time, in seconds. default never .
     };
 
     var opt = _extend(defaults, options);
@@ -292,7 +291,7 @@ function CacheConstructor (options) {
 
         this.serializer = opt.serializer;
 
-        this.quotaExceedHandler = opt.quotaExceedHandler;
+        this.quotaExceedHandler = defaultQuotaExceedHandler;
 
     } else {  // if not support, rewrite all functions without doing anything
         _extend(this, CacheAPI);
