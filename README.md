@@ -10,6 +10,20 @@ WebStorageCache backed by [storage interface](http://www.w3.org/TR/webstorage/#s
 
 
 # Usage
+To use WebStorageCache, just drop a single JavaScript file into your page:
+```html
+<script src="web-storage-cache.js"></script>
+```
+You can also use WebStorageCache with RequireJS:
+```javascript
+define(['web-storage-cache'], function(WebStorageCache) {
+    // create WebStorageCache instance.
+    var wsCache = new WebStorageCache();
+    // cache 'wqteam' at 'username', expired in 100 seconds
+    wsCache.set('username', 'wqteam', {exp : 100});
+});
+```
+## Demo
 ```javascript
 var wsCache = new WebStorageCache();
 
