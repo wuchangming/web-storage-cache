@@ -6,6 +6,8 @@
 
 WebStorageCache 基于接口 [storage interface](http://www.w3.org/TR/webstorage/#storage)。 对storage进行了封装，添加了超时时间，序列化方法。客户端浏览器可以像cookie一样使用。用'localStorage'或者'sessionStorage'进行数据缓存。
 
+[English](https://github.com/WQTeam/web-storage-cache/blob/master/README.md)
+
 # 实例
 ```javascript
 var wsCache = new WebStorageCache();
