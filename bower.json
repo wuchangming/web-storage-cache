@@ -1,0 +1,21 @@
+{
+  "name": "web-storage-cache",
+  "main": [
+    "src/web-storage-cache.js"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "version": "0.0.1",
+  "description": "web storage, improved.",
+  "moduleType": [
+    "amd",
+    "globals"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/WQTeam/web-storage-cache"
+}
