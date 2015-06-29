@@ -237,13 +237,13 @@
 
     add: function (key, value, options) {
         if(this.storage.getItem(key) == null) {
-            this.set(key, val, options);
+            this.set(key, value, options);
         }
     },
 
     replace: function (key, value, options) {
         if(this.storage.getItem(key) != null) {
-            this.set(key, val, options);
+            this.set(key, value, options);
         };
     },
 
