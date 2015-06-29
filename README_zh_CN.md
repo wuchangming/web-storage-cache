@@ -12,6 +12,12 @@ WebStorageCache 基于接口 [storage interface](http://www.w3.org/TR/webstorage
 使用WebStorageCache，只要在页面上引入下面代码即可。
 ```html
 <script src="web-storage-cache.js"></script>
+<script>
+// create WebStorageCache instance.
+var wsCache = new WebStorageCache();
+// cache 'wqteam' at 'username', expired in 100 seconds
+wsCache.set('username', 'wqteam', {exp : 100});
+</script>
 ```
 也可以在RequireJS使用WebStorageCache：
 ```javascript
