@@ -43,8 +43,9 @@
     * made to add something to storage that exceeded the quota."
     */
     function _isStorageSupported (storage) {
-        var supported = true;
+        var supported = false;
         if (storage && storage.setItem ) {
+            supported = true;
             var key = '__' + Math.round(Math.random() * 1e7);
             try {
                 storage.setItem(key, key);
