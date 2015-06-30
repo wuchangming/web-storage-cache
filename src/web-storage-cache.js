@@ -129,11 +129,13 @@
 
     // cache item constructor
     function CacheItemConstructor (value, exp) {
-        this.createTime = (new Date()).getTime();
+        // createTime
+        this.c = (new Date()).getTime();
         exp = exp || _maxExpireDate;
         var expires = _getExpiresDate(exp);
-        this.expires = expires.getTime();
-        this.value = value;
+        // expiresTime
+        this.e = expires.getTime();
+        this.v = value;
     }
 
     // cache api
@@ -144,7 +146,7 @@
         get: function (key) {},
 
         delete: function (key) {},
-        // try the best to clean All expries CacheItem.
+        // try the best to clean All expires CacheItem.
         deleteAllExpires: function() {},
         // Clear all keys
         clear: function () {},
@@ -192,8 +194,8 @@
         var cacheItem = defaultSerializer.deserialize(this.storage.getItem(key));
         if(cacheItem != null) {
             var timeNow = (new Date()).getTime();
-            if(timeNow < cacheItem['expires']) {
-                var value = cacheItem['value'];
+            if(timeNow < cacheItem.e) {
+                var value = cacheItem.v;
                 return this.serializer.deserialize(value);
             } else {
                 this.delete(key);
@@ -218,9 +220,9 @@
                 cacheItem = defaultSerializer.deserialize(this.storage.getItem(key));
             } catch (e) {}
 
-            if(cacheItem != null && cacheItem.expires != null) {
+            if(cacheItem != null && cacheItem.e != null) {
                 var timeNow = (new Date()).getTime();
-                if(timeNow >= cacheItem['expires']) {
+                if(timeNow >= cacheItem.e) {
                     deleteKeys.push(key);
                 }
             }
@@ -250,7 +252,7 @@
     touch: function (key, exp) {
         var cacheItem = this.get(key);
         if(cacheItem != null) {
-            cacheItem['expires'] = _getExpiresDate(exp);
+            cacheItem.e = _getExpiresDate(exp);
             try {
                 this.storage.setItem(key, defaultSerializer.serialize(cacheItem));
             } catch (e) {
