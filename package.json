@@ -21,6 +21,7 @@
         "url": "https://github.com/WQTeam/web-storage-cache/issues"
     },
     "devDependencies": {
-        "qunitjs": "1.18.0"
+        "chai": "~2.1.0",
+        "mocha": "~2.2.5"
     }
 }
