@@ -1,6 +1,7 @@
 var testDataTypes = {
     'number': [-12891, -1, 0, 1, 182918, 1.21, -121.21212],
     'string': ['wu', 'woqu', '123', '@#$%#@$!@?/11', '000', '   '],
+    'boolean': [false, true],
     'object': [
         {
             firstName: 'wu',
@@ -52,11 +53,12 @@ describe('WebStorageCache', function() {
             for (var type in testDataTypes) {
                 for(var i = 0; i < testDataTypes[type].length; i++) {
                     var value = testDataTypes[type][i];
-                    it('should return value :' + JSON.stringify(value), (function(value) {
+                    it('should return the same type `' + type + '` and value :'+ JSON.stringify(value), (function(value) {
                         return function() {
                             this.wsCache.set('lWsCacheTestDataTypes', value);
                             var gValue = this.wsCache.get('lWsCacheTestDataTypes');
                             expect(gValue).to.deep.equal(value);
+                            expect(typeof gValue).to.be.equal(typeof value);
                         }
                     })(value));
                 }
