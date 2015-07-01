@@ -49,16 +49,19 @@ describe('WebStorageCache', function() {
                 clearStorage();
             });
 
-            it('should return right type  and value', function() {
-                for (var type in testDataTypes) {
-                    for(var i = 0; i < testDataTypes[type].length; i++) {
-                        var value = testDataTypes[type][i];
-                        this.wsCache.set('lWsCacheTestDataTypes', value);
-                        var gValue = this.wsCache.get('lWsCacheTestDataTypes');
-                        expect(gValue).to.deep.equal(value);
-                    }
+            for (var type in testDataTypes) {
+                for(var i = 0; i < testDataTypes[type].length; i++) {
+                    var value = testDataTypes[type][i];
+                    it('should return value :' + JSON.stringify(value), (function(value) {
+                        return function() {
+                            this.wsCache.set('lWsCacheTestDataTypes', value);
+                            var gValue = this.wsCache.get('lWsCacheTestDataTypes');
+                            expect(gValue).to.deep.equal(value);
+                        }
+                    })(value));
                 }
-            });
+            }
+
         })
     })
 });
