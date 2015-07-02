@@ -30,7 +30,7 @@
     };
 
     function _extend (obj, props) {
-        for (var key in props) obj[key] = props[key]
+        for (var key in props) obj[key] = props[key];
         return obj;
     }
 
@@ -226,7 +226,7 @@
                     deleteKeys.push(key);
                 }
             }
-        };
+        }
         deleteKeys.forEach(function(key) {
             _this.delete(key);
         });
@@ -257,7 +257,8 @@
                 this.storage.setItem(key, defaultSerializer.serialize(cacheItem));
             } catch (e) {
                 if (_isQuotaExceeded(e)) { //data wasn't successfully saved due to quota exceed so throw an error
-                this.quotaExceedHandler(key, value, options, e);
+                var options = {exp: cacheItem.e};
+                this.quotaExceedHandler(key, cacheItem.v, options, e);
             } else {
                 console.error(e);
             }
