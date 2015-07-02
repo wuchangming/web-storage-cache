@@ -77,9 +77,6 @@ describe('WebStorageCache', function() {
                 expect(this.wsCache.get('testExpires')).to.be.deep.equal(value);
                 var _this = this;
                 setTimeout(function() {
-                    expect(_this.wsCache.get('testExpires')).to.be.deep.equal(value);
-                }, 2000);
-                setTimeout(function() {
                     expect(_this.wsCache.get('testExpires') === null);
                     done();
                 }, 3000);
