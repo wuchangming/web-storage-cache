@@ -9,7 +9,7 @@ WebStorageCache backed by [storage interface](http://www.w3.org/TR/webstorage/#s
 # Usage
 To use WebStorageCache, just drop a single JavaScript file into your page:
 ```html
-<script src="web-storage-cache.js"></script>
+<script src="src/web-storage-cache.js"></script>
 <script>
 // create WebStorageCache instance.
 var wsCache = new WebStorageCache();

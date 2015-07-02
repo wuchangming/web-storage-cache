@@ -11,7 +11,7 @@ WebStorageCache 基于接口 [storage interface](http://www.w3.org/TR/webstorage
 # 用法
 使用WebStorageCache，只要在页面上引入下面代码即可。
 ```html
-<script src="web-storage-cache.js"></script>
+<script src="src/web-storage-cache.js"></script>
 <script>
 // create WebStorageCache instance.
 var wsCache = new WebStorageCache();
