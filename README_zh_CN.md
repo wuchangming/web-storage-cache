@@ -1,4 +1,4 @@
-# WebStorageCache [建设中]
+# WebStorageCache [建设中] [English](https://github.com/WQTeam/web-storage-cache/blob/master/README.md)
 
 <a href='https://gitter.im/WQTeam/web-storage-cache'>
 <img src='https://badges.gitter.im/Join%20Chat.svg' alt='Gitter Chat' />
