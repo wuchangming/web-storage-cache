@@ -70,16 +70,19 @@ describe('WebStorageCache', function() {
             beforeEach(function() {
                 clearStorage();
             });
-            it('should be get null when #set options: {exp: 2} after 2 seconds', function(done) {
+            it('should be get null when #set options: {exp: 3} after 3 seconds', function(done) {
                 this.timeout(5000);
                 var value = 'test';
-                this.wsCache.set('testExpires', value, {exp: 2});
+                this.wsCache.set('testExpires', value, {exp: 3});
                 expect(this.wsCache.get('testExpires')).to.be.deep.equal(value);
                 var _this = this;
                 setTimeout(function() {
+                    expect(_this.wsCache.get('testExpires')).to.be.deep.equal(value);
+                }, 2000);
+                setTimeout(function() {
                     expect(_this.wsCache.get('testExpires') === null);
                     done();
-                }, 2000);
+                }, 3000);
             });
         });
     });
