@@ -80,9 +80,6 @@ var wsCache = new WebStorageCache({
     // other storage instance implement [Storage API].
     // default 'localStorage'.
     storage: 'localStorage',
-    // [option] defalut `serialize` uses JSON.stringify under the hood,
-    // and 'deserialize' uses JSON.parse under the hood.
-    serializer: serializer,
     // [option] //An expiration time, in seconds. default never .
     exp: Infinity
 });

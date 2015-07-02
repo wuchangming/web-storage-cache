@@ -80,10 +80,6 @@ var wsCache = new WebStorageCache({
     //        或者其他实现了 [Storage API] 的storage实例.
     //        默认 'localStorage'.
     storage: 'localStorage',
-    // [可选] 默认的 序列化器
-    //        序列化方法使用 JSON.stringify,
-    //        反序列化方法使用 JSON.parse under.
-    serializer: serializer,
     // [可选]  类型Number，公共超时事件设置。默认无限大
     exp: Infinity
 });
