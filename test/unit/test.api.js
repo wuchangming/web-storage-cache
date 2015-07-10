@@ -70,7 +70,7 @@ describe('WebStorageCache', function() {
             beforeEach(function() {
                 clearStorage();
             });
-            it('should be get null when #set options: {exp: 3} after 3 seconds', function(done) {
+            it('should be get null when invoke #set{exp: 3} after 3 seconds', function(done) {
                 this.timeout(5000);
                 var value = 'test';
                 this.wsCache.set('testExpires', value, {exp: 3});
@@ -81,6 +81,15 @@ describe('WebStorageCache', function() {
                     done();
                 }, 3000);
             });
+        });
+
+    });
+    describe('#delete', function() {
+        it('should be null when invoke #delete', function() {
+            var key = 'testDelete';
+            this.wsCache.set(key, 'testDeleteValue', {exp: 1000});
+            this.wsCache.delete(key);
+            expect((this.wsCache.get(key))).to.be.a('null');
         });
     });
 });
