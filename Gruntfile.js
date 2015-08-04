@@ -10,23 +10,31 @@ module.exports = function(grunt){
                  '*/\n';
 
     grunt.initConfig({
+        jshint: {
+            files: ['src/web-storage-cache.js']
+        },
         uglify: {
-            files: {
-                'src/web-storage-cache.min.js': ['src/web-storage-cache.js']
+            build: {
+                src: 'src/web-storage-cache.js',
+                dest: 'src/web-storage-cache.min.js'
             },
             options: {
                 banner: BANNER
             }
         },
         watch: {
-            build: {
-                files: ['src/*.js'],
-                tasks: ['build']
-            }
+            files: ['src/*.js'],
+            tasks: ['test']
         }
     });
 
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
-    grunt.registerTask('test', ['uglify']);
+    grunt.loadNpmTasks('grunt-contrib-watch');
+
+    grunt.loadNpmTasks('grunt-contrib-jshint');
+
+    grunt.registerTask('build', ['uglify']);
+
+    grunt.registerTask('test', ['jshint', 'build']);
 }

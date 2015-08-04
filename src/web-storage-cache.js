@@ -111,22 +111,6 @@
         return quotaExceeded;
     }
 
-    // default handle Quota Exceed
-    function defaultQuotaExceedHandler (key, val, options, e) {
-        console.warn('Quota exceeded!');
-        if (options && options.force === true) {
-            var deleteKeys = this.deleteAllExpires();
-            console.warn('delete all expires CacheItem : [' + deleteKeys + '] and try execute `set` method again!');
-            try {
-                options.force = false;
-                this.set(key, val, options);
-            } catch (e) {
-                console.warn(e);
-            }
-        }
-    }
-
-
     // cache item constructor
     function CacheItemConstructor (value, exp) {
         // createTime
@@ -192,7 +176,7 @@
     },
     get: function (key) {
         var cacheItem = defaultSerializer.deserialize(this.storage.getItem(key));
-        if(cacheItem != null) {
+        if(cacheItem !== null && cacheItem !== undefined) {
             var timeNow = (new Date()).getTime();
             if(timeNow < cacheItem.e) {
                 var value = cacheItem.v;
@@ -220,7 +204,7 @@
                 cacheItem = defaultSerializer.deserialize(this.storage.getItem(key));
             } catch (e) {}
 
-            if(cacheItem != null && cacheItem.e != null) {
+            if(cacheItem !== null && cacheItem !== undefined && cacheItem.e !== null && cacheItem.e !== undefined) {
                 var timeNow = (new Date()).getTime();
                 if(timeNow >= cacheItem.e) {
                     deleteKeys.push(key);
@@ -238,33 +222,33 @@
     },
 
     add: function (key, value, options) {
-        if(this.storage.getItem(key) == null) {
+        if(this.storage.getItem(key) === null || this.storage.getItem(key) === undefined) {
             this.set(key, value, options);
         }
     },
 
     replace: function (key, value, options) {
-        if(this.storage.getItem(key) != null) {
+        if(this.storage.getItem(key) !== null && this.storage.getItem(key) !== undefined) {
             this.set(key, value, options);
-        };
+        }
     },
 
     touch: function (key, exp) {
         var cacheItem = this.get(key);
-        if(cacheItem != null) {
+        if(cacheItem !== null && cacheItem !== undefined) {
             cacheItem.e = _getExpiresDate(exp);
             try {
                 this.storage.setItem(key, defaultSerializer.serialize(cacheItem));
             } catch (e) {
                 if (_isQuotaExceeded(e)) { //data wasn't successfully saved due to quota exceed so throw an error
-                var options = {exp: cacheItem.e};
-                this.quotaExceedHandler(key, cacheItem.v, options, e);
-            } else {
-                console.error(e);
+                    var options = {exp: cacheItem.e};
+                    this.quotaExceedHandler(key, cacheItem.v, options, e);
+                } else {
+                    console.error(e);
+                }
             }
         }
     }
-}
 };
 
 /**
@@ -295,7 +279,19 @@ function CacheConstructor (options) {
 
         this.serializer = opt.serializer;
 
-        this.quotaExceedHandler = defaultQuotaExceedHandler;
+        this.quotaExceedHandler = function (key, val, options, e) {
+            console.warn('Quota exceeded!');
+            if (options && options.force === true) {
+                var deleteKeys = this.deleteAllExpires();
+                console.warn('delete all expires CacheItem : [' + deleteKeys + '] and try execute `set` method again!');
+                try {
+                    options.force = false;
+                    this.set(key, val, options);
+                } catch (err) {
+                    console.warn(err);
+                }
+            }
+        };
 
     } else {  // if not support, rewrite all functions without doing anything
         _extend(this, CacheAPI);
