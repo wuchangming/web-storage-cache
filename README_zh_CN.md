@@ -1,4 +1,4 @@
-# WebStorageCache  [English](https://github.com/WQTeam/web-storage-cache/blob/master/README.md)
+# WebStorageCache  
 [![Build Status](https://travis-ci.org/WQTeam/web-storage-cache.svg?branch=master)](https://travis-ci.org/WQTeam/web-storage-cache)
 
 <a href='https://gitter.im/WQTeam/web-storage-cache'>
@@ -7,7 +7,8 @@
 
 WebStorageCache 基于接口 [storage interface](http://www.w3.org/TR/webstorage/#storage)。 对storage进行了封装，添加了超时时间，序列化方法。用'localStorage'或者'sessionStorage'进行数据缓存。
 
-[English](https://github.com/WQTeam/web-storage-cache/blob/master/README.md)
+### Language
+ [English](https://github.com/WQTeam/web-storage-cache/blob/master/README.md)
 
 # 用法
 使用WebStorageCache，只要在页面上引入下面代码即可。
