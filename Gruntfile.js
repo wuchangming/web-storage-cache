@@ -16,7 +16,7 @@ module.exports = function(grunt){
         uglify: {
             build: {
                 src: 'src/web-storage-cache.js',
-                dest: 'src/web-storage-cache.min.js'
+                dest: 'dist/web-storage-cache.min.js'
             },
             options: {
                 banner: BANNER
