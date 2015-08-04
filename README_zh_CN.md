@@ -1,4 +1,4 @@
-# WebStorageCache [建设中] [English](https://github.com/WQTeam/web-storage-cache/blob/master/README.md)
+# WebStorageCache  [English](https://github.com/WQTeam/web-storage-cache/blob/master/README.md)
 [![Build Status](https://travis-ci.org/WQTeam/web-storage-cache.svg?branch=master)](https://travis-ci.org/WQTeam/web-storage-cache)
 
 <a href='https://gitter.im/WQTeam/web-storage-cache'>
