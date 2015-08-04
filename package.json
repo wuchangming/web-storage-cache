@@ -20,7 +20,7 @@
     "bugs": {
         "url": "https://github.com/WQTeam/web-storage-cache/issues"
     },
-    "script": {
+    "scripts": {
         "test": "grunt test"
     },
     "devDependencies": {
