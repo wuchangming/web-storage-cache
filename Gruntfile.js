@@ -25,6 +25,11 @@ module.exports = function(grunt){
         watch: {
             files: ['src/*.js'],
             tasks: ['test']
+        },
+        mocha: {
+            test: {
+                src: ['test/**/*.html']
+            }
         }
     });
 
@@ -34,7 +39,9 @@ module.exports = function(grunt){
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
 
+    grunt.loadNpmTasks('grunt-mocha');
+
     grunt.registerTask('build', ['uglify']);
 
-    grunt.registerTask('test', ['jshint', 'build']);
+    grunt.registerTask('test', ['jshint', 'build', 'mocha']);
 }
