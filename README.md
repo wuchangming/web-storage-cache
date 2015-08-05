@@ -30,6 +30,8 @@ define(['web-storage-cache'], function(WebStorageCache) {
     wsCache.set('username', 'wqteam', {exp : 100});
 });
 ```
+
+[Download](https://github.com/WQTeam/web-storage-cache/releases) the latest WebStorageCache from GitHub
 ## Demo
 ```javascript
 var wsCache = new WebStorageCache();

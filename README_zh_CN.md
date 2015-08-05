@@ -30,6 +30,9 @@ define(['web-storage-cache'], function(WebStorageCache) {
     wsCache.set('username', 'wqteam', {exp : 100});
 });
 ```
+
+[下载](https://github.com/WQTeam/web-storage-cache/releases) 最新 WebStorageCache
+
 ## 例子
 ```javascript
 var wsCache = new WebStorageCache();
