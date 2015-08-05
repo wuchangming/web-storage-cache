@@ -11,6 +11,9 @@ WebStorageCache backed by [storage interface](http://www.w3.org/TR/webstorage/#s
 [中文](https://github.com/WQTeam/web-storage-cache/blob/master/README_zh_CN.md)
 
 # Usage
+
+[Download](https://github.com/WQTeam/web-storage-cache/releases) the latest WebStorageCache from GitHub.
+
 To use WebStorageCache, just drop a single JavaScript file into your page:
 ```html
 <script src="src/web-storage-cache.js"></script>
@@ -31,7 +34,6 @@ define(['web-storage-cache'], function(WebStorageCache) {
 });
 ```
 
-[Download](https://github.com/WQTeam/web-storage-cache/releases) the latest WebStorageCache from GitHub
 ## Demo
 ```javascript
 var wsCache = new WebStorageCache();

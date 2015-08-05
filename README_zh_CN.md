@@ -11,6 +11,9 @@ WebStorageCache 基于接口 [storage interface](http://www.w3.org/TR/webstorage
  [English](https://github.com/WQTeam/web-storage-cache/blob/master/README.md)
 
 # 用法
+
+[下载](https://github.com/WQTeam/web-storage-cache/releases) 最新 WebStorageCache。
+
 使用WebStorageCache，只要在页面上引入下面代码即可。
 ```html
 <script src="src/web-storage-cache.js"></script>
@@ -30,8 +33,6 @@ define(['web-storage-cache'], function(WebStorageCache) {
     wsCache.set('username', 'wqteam', {exp : 100});
 });
 ```
-
-[下载](https://github.com/WQTeam/web-storage-cache/releases) 最新 WebStorageCache
 
 ## 例子
 ```javascript
