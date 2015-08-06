@@ -137,8 +137,8 @@ describe('WebStorageCache', function() {
                 _this.wsCache.add(addKey, value2);
                 expect(_this.wsCache.get(addKey)).to.equal(value2);
                 done();
-            }, 2000)
-        })
+            }, 2000);
+        });
     });
     describe('#replace', function() {
         beforeEach(function() {

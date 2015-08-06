@@ -130,16 +130,6 @@
         }
         return false;
     }
-    // check the string if cacheItemString
-    // function _isCacheItemString(itemString) {
-    //     var item = null;
-    //     try {
-    //         item = defaultSerializer.deserialize(itemString);
-    //     } catch (e) {
-    //         return false;
-    //     }
-    //     return _isCacheItem(item);
-    // }
 
     // check cacheItem If effective
     function _checkCacheItemIfEffective(cacheItem) {
