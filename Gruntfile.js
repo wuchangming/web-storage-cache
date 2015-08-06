@@ -11,7 +11,7 @@ module.exports = function(grunt){
 
     grunt.initConfig({
         jshint: {
-            files: ['src/web-storage-cache.js']
+            files: ['src/web-storage-cache.js', 'test/**/*.js']
         },
         uglify: {
             build: {

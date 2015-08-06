@@ -64,10 +64,10 @@ wsCache.deleteAllExpires();
 wsCache.clear();
 
 // Set a new expiration time for an existing key.
-wsCache.touch('username',  {exp : 1000});
+wsCache.touch('username',  1000);
 
 // Add key-value item to cache, success only when the key is not exists in cache
-wsCache.add('username2', 'wqteam', 1000);
+wsCache.add('username2', 'wqteam', {exp : 1000});
 
 // Replace the key's data item in cache, success only when the key's data item is exists in cache.
 wsCache.replace('username', 'new wqteam', {exp : 1000});

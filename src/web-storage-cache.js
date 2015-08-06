@@ -122,6 +122,21 @@
         this.v = value;
     }
 
+    function isCacheItemString(itemString) {
+        var item = null;
+        try {
+            item = defaultSerializer.deserialize(itemString);
+        } catch (e) {
+            return false;
+        }
+        if(item) {
+            if('c' in item && 'e' in item && 'v' in item) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // cache api
     var CacheAPI = {
 
@@ -176,7 +191,7 @@
     },
     get: function (key) {
         var cacheItem = defaultSerializer.deserialize(this.storage.getItem(key));
-        if(cacheItem !== null && cacheItem !== undefined) {
+        if(cacheItem !== null) {
             var timeNow = (new Date()).getTime();
             if(timeNow < cacheItem.e) {
                 var value = cacheItem.v;
@@ -204,7 +219,7 @@
                 cacheItem = defaultSerializer.deserialize(this.storage.getItem(key));
             } catch (e) {}
 
-            if(cacheItem !== null && cacheItem !== undefined && cacheItem.e !== null && cacheItem.e !== undefined) {
+            if(cacheItem !== null && cacheItem.e !== undefined) {
                 var timeNow = (new Date()).getTime();
                 if(timeNow >= cacheItem.e) {
                     deleteKeys.push(key);
@@ -222,31 +237,49 @@
     },
 
     add: function (key, value, options) {
-        if(this.storage.getItem(key) === null || this.storage.getItem(key) === undefined) {
+        if(this.storage.getItem(key) === null) {
             this.set(key, value, options);
         }
     },
 
     replace: function (key, value, options) {
-        if(this.storage.getItem(key) !== null && this.storage.getItem(key) !== undefined) {
-            this.set(key, value, options);
+        if(this.get(key) === null) {
+            return false;
         }
-    },
-
-    touch: function (key, exp) {
-        var cacheItem = this.get(key);
-        if(cacheItem !== null && cacheItem !== undefined) {
-            cacheItem.e = _getExpiresDate(exp);
+        var valueOld = this.get(key);
+        if (valueOld !== null){
             try {
-                this.storage.setItem(key, defaultSerializer.serialize(cacheItem));
+                this.set(key, value, options);
+                return true;
             } catch (e) {
                 if (_isQuotaExceeded(e)) { //data wasn't successfully saved due to quota exceed so throw an error
                     var options = {exp: cacheItem.e};
-                    this.quotaExceedHandler(key, cacheItem.v, options, e);
+                    this.quotaExceedHandler(key, value, options, e);
                 } else {
                     console.error(e);
                 }
             }
+        }
+    },
+
+    touch: function (key, exp) {
+        try {
+            var value = this.get(key);
+            if(value !== null) {
+                    try {
+                        this.set(key, {exp: exp});
+                        return true;
+                    } catch (e) {
+                        if (_isQuotaExceeded(e)) { //data wasn't successfully saved due to quota exceed so throw an error
+                            var options = {exp: cacheItem.e};
+                            this.quotaExceedHandler(key, value, options, e);
+                        } else {
+                            console.error(e);
+                        }
+                    }
+            }
+        } catch (error) {
+            console.error(error);
         }
     }
 };

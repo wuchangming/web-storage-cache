@@ -64,10 +64,10 @@ wsCache.deleteAllExpires();
 wsCache.clear();
 
 // 为已存在的（未超时的）缓存值设置新的超时时间。
-wsCache.touch('username',  {exp : 1000});
+wsCache.touch('username', 1000);
 
 // 如果缓存中没有key为username2的缓存，则添加username2。反之什么都不做
-wsCache.add('username2', 'wqteam', 1000);
+wsCache.add('username2', 'wqteam', {exp : 1000});
 
 // 如果缓存中有key为username的缓存，则替换为新值。反之什么都不做
 wsCache.replace('username', 'new wqteam', {exp : 1000});
@@ -100,7 +100,7 @@ wsCache.isSupported(); // 返回值Boolean。
 往缓存中插入数据。
 ```javascript
 // key [必填] 必须要为String类型。
-// value [必填] 可以保存String, PlainObject, Array类型。注：当为undefined的时候会执行 delete(key)操作。
+// value [必填] 支持所以可以JSON.parse 的类型。注：当为undefined的时候会执行 delete(key)操作。
 // options [选填] js对象，包含两个属性 exp 和 force。
 // {
 //     // 类型Number。超时时间，秒。默认无限大。
@@ -137,7 +137,7 @@ wsCache.clear();
 ```javascript
 // key [必填] String类型
 // options [必填] js对象包含exp属性（以当前时间为起点的新的超时时间）
-wsCache.touch(key, {exp: 1000});
+wsCache.touch(key, exp: 1000);
 ```
 ## add
 根据key做插入操作，如果key对应的值不存在或者已超时着插入该值，反之什么都不做。

@@ -1,25 +1,3 @@
-var testDataTypes = {
-    'number': [-12891, -1, 0, 1, 182918, 1.21, -121.21212],
-    'string': ['wu', 'woqu', '123', '@#$%#@$!@?/11', '000', '   '],
-    'boolean': [false, true],
-    'object': [
-        {
-            firstName: 'wu',
-            lastName: 'changming'
-        },{
-            // empty
-        }
-    ],
-    'array': [
-        ['a', 'asdfb', 'c'],
-        [1 ,2 ,3],
-        [1.1, 1.3, 3.00],
-        [false, true, true],
-        [{a: 1}, {b: 1}, {c: 'a'}],
-        [1, 'asdf', 3.23, false, {ss: 'asdf'}]
-    ]
-};
-
 var storage = window.localStorage;
 
 function clearStorage() {
@@ -34,37 +12,29 @@ describe('WebStorageCache', function() {
     after(function() {
         clearStorage();
     });
-    describe('#WebStorageCache', function() {
-        it('should be a function', function(){
+    describe('#Constructor', function() {
+        it('Constructor should be a function', function(){
             expect(WebStorageCache).to.be.a('function');
+        });
+        it('has the WebStorageCache API', function() {
+            var wsCache = this.wsCache;
+            expect(wsCache.isSupported).to.be.a('function');
+            expect(wsCache.set).to.be.a('function');
+            expect(wsCache.get).to.be.a('function');
+            expect(wsCache.delete).to.be.a('function');
+            expect(wsCache.deleteAllExpires).to.be.a('function');
+            expect(wsCache.clear).to.be.a('function');
+            expect(wsCache.touch).to.be.a('function');
+            expect(wsCache.add).to.be.a('function');
+            expect(wsCache.replace).to.be.a('function');
+        });
+    });
+    describe('#isSupported', function() {
+        it('should be true', function() {
+            expect(this.wsCache.isSupported()).to.equal(true);
         });
     });
     describe('#set,#get', function() {
-
-        it('should be a function', function() {
-            expect(this.wsCache.set).to.be.a('function');
-        });
-
-        describe('serializer', function() {
-            beforeEach(function() {
-                clearStorage();
-            });
-
-            for (var type in testDataTypes) {
-                for(var i = 0; i < testDataTypes[type].length; i++) {
-                    var value = testDataTypes[type][i];
-                    it('should return the same type `' + type + '` and value :'+ JSON.stringify(value), (function(value) {
-                        return function() {
-                            this.wsCache.set('lWsCacheTestDataTypes', value);
-                            var gValue = this.wsCache.get('lWsCacheTestDataTypes');
-                            expect(gValue).to.deep.equal(value);
-                            expect(typeof gValue).to.be.equal(typeof value);
-                        };
-                    })(value));
-                }
-            }
-
-        });
 
         describe('expires', function() {
             beforeEach(function() {
@@ -103,4 +73,79 @@ describe('WebStorageCache', function() {
             expect((this.wsCache.get(key))).to.be.a('null');
         });
     });
+    describe('#deleteAllExpires', function() {
+        it('should be a null if items has been expired after delete all expires items', function() {
+            var expiresKey = 'expiresKey';
+            var notExpiresKey = 'notExpiresKey';
+            var now = new Date();
+            this.wsCache.set(expiresKey, 'expiresValue', {exp: now});
+            this.wsCache.set(notExpiresKey, 'notExpiresValue');
+            this.wsCache.deleteAllExpires();
+            expect((this.wsCache.get(expiresKey))).to.be.a('null');
+            expect((this.wsCache.get(notExpiresKey))).not.to.be.a('null');
+        });
+    });
+    describe('#clear', function() {
+        it('should clear all items not only created by WebStorageCache', function() {
+            var WebStorageCachekey = 'WebStorageCachekey';
+            var normalKey = 'normalKey';
+            storage.setItem(normalKey, 'normalValue');
+            this.wsCache.set(WebStorageCachekey, 'WebStorageCacheValue');
+            this.wsCache.clear();
+            expect(storage.getItem(normalKey)).to.be.a('null');
+            expect(this.wsCache.get(WebStorageCachekey)).to.be.a('null');
+        });
+    });
+    describe('#touch', function() {
+        this.timeout(5000);
+        it('should has a new expires time after `touch`', function(done) {
+            var touchKey = 'touchKey';
+            this.wsCache.set(touchKey, 'touchValue', {exp: 1000});
+            this.wsCache.touch(touchKey, 5000);
+            var _this = this;
+            setTimeout(function() {
+                expect(_this.wsCache.get(touchKey)).not.to.be.a('null');
+                done();
+            }, 3000);
+        });
+    });
+    describe('#add', function() {
+        it('should add item to storage ,success only when the key is not exists', function() {
+            var addKey = 'addKey';
+            var value1 = '1';
+            var value2 = '2';
+            this.wsCache.add(addKey, value1);
+            expect(this.wsCache.get(addKey)).to.equal(value1);
+            this.wsCache.add(addKey, value2);
+            expect(this.wsCache.get(addKey)).to.equal(value1);
+        });
+    });
+    describe('#replace', function() {
+        beforeEach(function() {
+            clearStorage();
+        });
+        it('should replace the key\'s data item in storage,success only when the key\'s data item is exists in storage.', function() {
+            var replaceKey = 'replaceKey';
+            var value1 = '1';
+            var value2 = '2';
+            this.wsCache.replace(replaceKey, value1);
+            expect(this.wsCache.get(replaceKey)).to.be.a('null');
+            this.wsCache.add(replaceKey, value1);
+            this.wsCache.replace(replaceKey, value2);
+            expect(this.wsCache.get(replaceKey)).to.equal(value2);
+        });
+        it('should reflash item\'s expires with new options', function(done) {
+            this.timeout(3000);
+            var replaceKey = 'replaceKey';
+            var value1 = '1';
+            this.wsCache.add(replaceKey, value1);
+            this.wsCache.replace(replaceKey, value1, {exp: 1000});
+            var _this = this;
+            setTimeout(function() {
+                expect(_this.wsCache.get(replaceKey)).to.equal('1');
+                done();
+            }, 2000);
+        });
+    });
+
 });
