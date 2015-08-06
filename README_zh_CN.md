@@ -123,29 +123,31 @@ wsCache.get(key);
 wsCache.delete(key);
 ```
 ## deleteAllExpires
-删除缓存中所有超时的值。
+删除缓存中所有通过WebStorageCache存储的超时值。
 ```javascript
 wsCache.deleteAllExpires();
 ```
 ## clear
-清空缓存中全部的值。注意：这个方法会清除不是使用WebStorageCache插入的值
+清空缓存中全部的值。注意：这个方法会清除不是使用WebStorageCache插入的值。推荐使用:`deleteAllExpires`。
 ```javascript
 wsCache.clear();
 ```
 ## touch
-根据key为已存在的（未超时的）缓存值设置新的超时时间。
+根据key为已存在的（未超时的）缓存值以当前时间为基准设置新的超时时间。
 ```javascript
 // key [必填] String类型
-// options [必填] js对象包含exp属性（以当前时间为起点的新的超时时间）
-wsCache.touch(key, exp: 1000);
+// exp [必填] number 单位：秒 js对象包含exp属性（以当前时间为起点的新的超时时间）
+wsCache.touch(key, exp: 1);
 ```
 ## add
-根据key做插入操作，如果key对应的值不存在或者已超时着插入该值，反之什么都不做。
+根据key做插入操作，如果key对应的值不存在或者已超时则插入该值，反之什么都不做。
+注：不是通过WebStorageCache插入的值也会当作失效的值，依然执行`add`操作
 ```javascript
 wsCache.add(key, value, options);
 ```
 ## replace
-根据key做插入操作，如果key对应的值存在并且未超时着插入该值，反之什么都不做
+根据key做插入操作，如果key对应的值存在并且未超时则插入该值，反之什么都不做  
+注：超时时间以当前时间为基准重新设置。
 ```javascript
 wsCache.replace(key, value, options);
 ```

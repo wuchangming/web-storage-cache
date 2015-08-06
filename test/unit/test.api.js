@@ -68,7 +68,7 @@ describe('WebStorageCache', function() {
     describe('#delete', function() {
         it('should be null when invoke #delete', function() {
             var key = 'testDelete';
-            this.wsCache.set(key, 'testDeleteValue', {exp: 1000});
+            this.wsCache.set(key, 'testDeleteValue', {exp: 1});
             this.wsCache.delete(key);
             expect((this.wsCache.get(key))).to.be.a('null');
         });
@@ -100,17 +100,24 @@ describe('WebStorageCache', function() {
         this.timeout(5000);
         it('should has a new expires time after `touch`', function(done) {
             var touchKey = 'touchKey';
-            this.wsCache.set(touchKey, 'touchValue', {exp: 1000});
-            this.wsCache.touch(touchKey, 5000);
+            var touchKey2 = 'touchKey2';
+            var touchKey3 = 'touchKey3';
+            this.wsCache.set(touchKey, 'touchValue', {exp: 1});
+            this.wsCache.set(touchKey2, 'touchValue2', {exp: 1});
+            this.wsCache.set(touchKey3, 'touchValue2');
+            this.wsCache.touch(touchKey, 5);
+            this.wsCache.touch(touchKey3, 2);
             var _this = this;
             setTimeout(function() {
                 expect(_this.wsCache.get(touchKey)).not.to.be.a('null');
+                expect(_this.wsCache.get(touchKey2)).to.be.a('null');
+                expect(_this.wsCache.get(touchKey3)).to.be.a('null');
                 done();
             }, 3000);
         });
     });
     describe('#add', function() {
-        it('should add item to storage ,success only when the key is not exists', function() {
+        it('should add item to storage ,success when the key is not exists', function() {
             var addKey = 'addKey';
             var value1 = '1';
             var value2 = '2';
@@ -119,6 +126,19 @@ describe('WebStorageCache', function() {
             this.wsCache.add(addKey, value2);
             expect(this.wsCache.get(addKey)).to.equal(value1);
         });
+        it('should add item to storage ,success when the key is expires', function(done) {
+            this.timeout(3000);
+            var addKey = 'addKey';
+            var value1 = '1';
+            var value2 = '2';
+            this.wsCache.set(addKey, value1, {exp: 1});
+            var _this = this;
+            setTimeout(function(){
+                _this.wsCache.add(addKey, value2);
+                expect(_this.wsCache.get(addKey)).to.equal(value2);
+                done();
+            }, 2000)
+        })
     });
     describe('#replace', function() {
         beforeEach(function() {
@@ -139,10 +159,10 @@ describe('WebStorageCache', function() {
             var replaceKey = 'replaceKey';
             var value1 = '1';
             this.wsCache.add(replaceKey, value1);
-            this.wsCache.replace(replaceKey, value1, {exp: 1000});
+            this.wsCache.replace(replaceKey, value1, {exp: 1});
             var _this = this;
             setTimeout(function() {
-                expect(_this.wsCache.get(replaceKey)).to.equal('1');
+                expect(_this.wsCache.get(replaceKey)).to.be.a('null');
                 done();
             }, 2000);
         });
