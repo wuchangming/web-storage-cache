@@ -1,5 +1,5 @@
 /*
-* WebStorageCache - v0.0.1
+* WebStorageCache - 0.0.2
 * https://github.com/WQTeam/web-storage-cache
 *
 * This is free and unencumbered software released into the public domain.
