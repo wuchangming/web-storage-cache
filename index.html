@@ -102,13 +102,13 @@ wsCache.deleteAllExpires();
 wsCache.<span class="pl-c1">clear</span>();
 
 <span class="pl-c">// Set a new expiration time for an existing key.</span>
-wsCache.touch(<span class="pl-s"><span class="pl-pds">'</span>username<span class="pl-pds">'</span></span>,  <span class="pl-c1">1000</span>);
+wsCache.touch(<span class="pl-s"><span class="pl-pds">'</span>username<span class="pl-pds">'</span></span>,  <span class="pl-c1">1</span>);
 
 <span class="pl-c">// Add key-value item to cache, success only when the key is not exists in cache</span>
-wsCache.<span class="pl-c1">add</span>(<span class="pl-s"><span class="pl-pds">'</span>username2<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>wqteam<span class="pl-pds">'</span></span>, {exp <span class="pl-k">:</span> <span class="pl-c1">1000</span>});
+wsCache.<span class="pl-c1">add</span>(<span class="pl-s"><span class="pl-pds">'</span>username2<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>wqteam<span class="pl-pds">'</span></span>, {exp <span class="pl-k">:</span> <span class="pl-c1">1</span>});
 
 <span class="pl-c">// Replace the key's data item in cache, success only when the key's data item is exists in cache.</span>
-wsCache.<span class="pl-c1">replace</span>(<span class="pl-s"><span class="pl-pds">'</span>username<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>new wqteam<span class="pl-pds">'</span></span>, {exp <span class="pl-k">:</span> <span class="pl-c1">1000</span>});
+wsCache.<span class="pl-c1">replace</span>(<span class="pl-s"><span class="pl-pds">'</span>username<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>new wqteam<span class="pl-pds">'</span></span>, {exp <span class="pl-k">:</span> <span class="pl-c1">1</span>});
 
 <span class="pl-c">// check if the 'storage' supported by the user browser. if it`s not supported by the user browser all the  WebStorageCache API methods will do noting.</span>
 wsCache.isSupported();
@@ -128,6 +128,69 @@ wsCache.isSupported();
     <span class="pl-c">// [option] //An expiration time, in seconds. default never .</span>
     exp<span class="pl-k">:</span> <span class="pl-c1">Infinity</span>
 });</pre></div>
+
+<h2>
+<a id="issupported" class="anchor" href="#issupported" aria-hidden="true"><span class="octicon octicon-link"></span></a>isSupported</h2>
+
+<p>Check if the <code>Storage API</code> be supported by the browser.</p>
+
+<div class="highlight highlight-javascript"><pre>wsCache.isSupported(); <span class="pl-c">// return Boolean.</span></pre></div>
+
+<h2>
+<a id="set" class="anchor" href="#set" aria-hidden="true"><span class="octicon octicon-link"></span></a>set</h2>
+
+<p>Set a new <code>CacheItem</code> to <code>storage</code>.</p>
+
+<div class="highlight highlight-javascript"><pre>wsCache.set(key, value, options);</pre></div>
+
+<h2>
+<a id="get" class="anchor" href="#get" aria-hidden="true"><span class="octicon octicon-link"></span></a>get</h2>
+
+<p>Get a cached item by <code>key</code>.</p>
+
+<div class="highlight highlight-javascript"><pre>wsCache.get(key);</pre></div>
+
+<h2>
+<a id="delete" class="anchor" href="#delete" aria-hidden="true"><span class="octicon octicon-link"></span></a>delete</h2>
+
+<p>Delete a cached item by 'key'.</p>
+
+<div class="highlight highlight-javascript"><pre>wsCache.delete(key);</pre></div>
+
+<h2>
+<a id="deleteallexpires" class="anchor" href="#deleteallexpires" aria-hidden="true"><span class="octicon octicon-link"></span></a>deleteAllExpires</h2>
+
+<p>Delete all expired item.</p>
+
+<div class="highlight highlight-javascript"><pre>wsCache.deleteAllExpires();</pre></div>
+
+<h2>
+<a id="clear" class="anchor" href="#clear" aria-hidden="true"><span class="octicon octicon-link"></span></a>clear</h2>
+
+<p>Delete all items in the storage, not only save by <code>wsCache</code>.</p>
+
+<div class="highlight highlight-javascript"><pre>wsCache.<span class="pl-c1">clear</span>();</pre></div>
+
+<h2>
+<a id="touch" class="anchor" href="#touch" aria-hidden="true"><span class="octicon octicon-link"></span></a>touch</h2>
+
+<p>Set a new expire time for the cache item.</p>
+
+<div class="highlight highlight-javascript"><pre>wsCache.touch(key, exp<span class="pl-k">:</span> <span class="pl-c1">1</span>);</pre></div>
+
+<h2>
+<a id="add" class="anchor" href="#add" aria-hidden="true"><span class="octicon octicon-link"></span></a>add</h2>
+
+<p>add a new cache item to the <code>storage</code>,success only when the key is not exists.</p>
+
+<div class="highlight highlight-javascript"><pre>wsCache.<span class="pl-c1">add</span>(key, value, options);</pre></div>
+
+<h2>
+<a id="replace" class="anchor" href="#replace" aria-hidden="true"><span class="octicon octicon-link"></span></a>replace</h2>
+
+<p>Replace the key's cache item in storage,success only when the key's data item is exists in memcached.</p>
+
+<div class="highlight highlight-javascript"><pre>wsCache.<span class="pl-c1">replace</span>(key, value, options);</pre></div>
       </section>
     </div>
 
