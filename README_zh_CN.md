@@ -64,13 +64,13 @@ wsCache.deleteAllExpires();
 wsCache.clear();
 
 // 为已存在的（未超时的）缓存值设置新的超时时间。
-wsCache.touch('username', 1000);
+wsCache.touch('username', 1);
 
 // 如果缓存中没有key为username2的缓存，则添加username2。反之什么都不做
-wsCache.add('username2', 'wqteam', {exp : 1000});
+wsCache.add('username2', 'wqteam', {exp : 1});
 
 // 如果缓存中有key为username的缓存，则替换为新值。反之什么都不做
-wsCache.replace('username', 'new wqteam', {exp : 1000});
+wsCache.replace('username', 'new wqteam', {exp : 1});
 
 // 检查当前选择作为缓存的storage是否被用户浏览器支持。
 //如果不支持调用WebStorageCache API提供的方法将什么都不做。
