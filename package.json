@@ -16,7 +16,6 @@
     },
     "browser": "src/web-storage-cache.js",
     "main": "src/web-storage-cache.js",
-    "licence": "MIT",
     "bugs": {
         "url": "https://github.com/WQTeam/web-storage-cache/issues"
     },
