@@ -1,7 +1,7 @@
 # WebStorageCache  
 [![Build Status](https://travis-ci.org/WQTeam/web-storage-cache.svg?branch=master)](https://travis-ci.org/WQTeam/web-storage-cache)
 [![Circle CI](https://circleci.com/gh/WQTeam/web-storage-cache.svg?style=svg)](https://circleci.com/gh/WQTeam/web-storage-cache)
-[![npm](https://img.shields.io/npm/dt/web-storage-cache.svg)]()
+[![npm](https://img.shields.io/npm/dt/web-storage-cache.svg)](https://www.npmjs.com/package/web-storage-cache)
 <a href='https://gitter.im/WQTeam/web-storage-cache'>
 <img src='https://badges.gitter.im/Join%20Chat.svg' alt='Gitter Chat' />
 </a>
