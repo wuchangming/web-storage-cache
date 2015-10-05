@@ -115,7 +115,7 @@ Delete a cached item by 'key'.
 wsCache.delete(key);
 ```
 ## deleteAllExpires
-Delete all expired item.
+Delete all expired items.
 ```javascript
 wsCache.deleteAllExpires();
 ```
