@@ -1,14 +1,20 @@
-# WebStorageCache [建设中] [English](https://github.com/WQTeam/web-storage-cache/blob/master/README.md)
-
+# WebStorageCache  
+[![Build Status](https://travis-ci.org/WQTeam/web-storage-cache.svg?branch=master)](https://travis-ci.org/WQTeam/web-storage-cache)
+[![Circle CI](https://circleci.com/gh/WQTeam/web-storage-cache.svg?style=svg)](https://circleci.com/gh/WQTeam/web-storage-cache)
+[![npm](https://img.shields.io/npm/dt/web-storage-cache.svg)](https://www.npmjs.com/package/web-storage-cache)
 <a href='https://gitter.im/WQTeam/web-storage-cache'>
 <img src='https://badges.gitter.im/Join%20Chat.svg' alt='Gitter Chat' />
 </a>
 
-WebStorageCache 基于接口 [storage interface](http://www.w3.org/TR/webstorage/#storage)。 对storage进行了封装，添加了超时时间，序列化方法。客户端浏览器可以像cookie一样使用。用'localStorage'或者'sessionStorage'进行数据缓存。
+WebStorageCache 基于接口 [storage interface](http://www.w3.org/TR/webstorage/#storage)。 对storage进行了封装，添加了超时时间，序列化方法。用'localStorage'或者'sessionStorage'进行数据缓存。
 
-[English](https://github.com/WQTeam/web-storage-cache/blob/master/README.md)
+### Language
+ [English](https://github.com/WQTeam/web-storage-cache/blob/master/README.md)
 
 # 用法
+
+[下载](https://github.com/WQTeam/web-storage-cache/releases) 最新 WebStorageCache。
+
 使用WebStorageCache，只要在页面上引入下面代码即可。
 ```html
 <script src="src/web-storage-cache.js"></script>
@@ -28,6 +34,7 @@ define(['web-storage-cache'], function(WebStorageCache) {
     wsCache.set('username', 'wqteam', {exp : 100});
 });
 ```
+
 ## 例子
 ```javascript
 var wsCache = new WebStorageCache();
@@ -58,13 +65,13 @@ wsCache.deleteAllExpires();
 wsCache.clear();
 
 // 为已存在的（未超时的）缓存值设置新的超时时间。
-wsCache.touch('username',  {exp : 1000});
+wsCache.touch('username', 1);
 
 // 如果缓存中没有key为username2的缓存，则添加username2。反之什么都不做
-wsCache.add('username2', 'wqteam', 1000);
+wsCache.add('username2', 'wqteam', {exp : 1});
 
 // 如果缓存中有key为username的缓存，则替换为新值。反之什么都不做
-wsCache.replace('username', 'new wqteam', {exp : 1000});
+wsCache.replace('username', 'new wqteam', {exp : 1});
 
 // 检查当前选择作为缓存的storage是否被用户浏览器支持。
 //如果不支持调用WebStorageCache API提供的方法将什么都不做。
@@ -94,7 +101,7 @@ wsCache.isSupported(); // 返回值Boolean。
 往缓存中插入数据。
 ```javascript
 // key [必填] 必须要为String类型。
-// value [必填] 可以保存String, PlainObject, Array类型。注：当为undefined的时候会执行 delete(key)操作。
+// value [必填] 支持所以可以JSON.parse 的类型。注：当为undefined的时候会执行 delete(key)操作。
 // options [选填] js对象，包含两个属性 exp 和 force。
 // {
 //     // 类型Number。超时时间，秒。默认无限大。
@@ -117,29 +124,31 @@ wsCache.get(key);
 wsCache.delete(key);
 ```
 ## deleteAllExpires
-删除缓存中所有超时的值。
+删除缓存中所有通过WebStorageCache存储的超时值。
 ```javascript
 wsCache.deleteAllExpires();
 ```
 ## clear
-清空缓存中全部的值。注意：这个方法会清除不是使用WebStorageCache插入的值
+清空缓存中全部的值。注意：这个方法会清除不是使用WebStorageCache插入的值。推荐使用:`deleteAllExpires`。
 ```javascript
 wsCache.clear();
 ```
 ## touch
-根据key为已存在的（未超时的）缓存值设置新的超时时间。
+根据key为已存在的（未超时的）缓存值以当前时间为基准设置新的超时时间。
 ```javascript
 // key [必填] String类型
-// options [必填] js对象包含exp属性（以当前时间为起点的新的超时时间）
-wsCache.touch(key, {exp: 1000});
+// exp [必填] number 单位：秒 js对象包含exp属性（以当前时间为起点的新的超时时间）
+wsCache.touch(key, exp: 1);
 ```
 ## add
-根据key做插入操作，如果key对应的值不存在或者已超时着插入该值，反之什么都不做。
+根据key做插入操作，如果key对应的值不存在或者已超时则插入该值，反之什么都不做。
+注：不是通过WebStorageCache插入的值也会当作失效的值，依然执行`add`操作
 ```javascript
 wsCache.add(key, value, options);
 ```
 ## replace
-根据key做插入操作，如果key对应的值存在并且未超时着插入该值，反之什么都不做
+根据key做插入操作，如果key对应的值存在并且未超时则插入该值，反之什么都不做  
+注：超时时间以当前时间为基准重新设置。
 ```javascript
 wsCache.replace(key, value, options);
 ```

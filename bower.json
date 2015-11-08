@@ -1,7 +1,7 @@
 {
   "name": "web-storage-cache",
   "main": [
-    "src/web-storage-cache.js"
+    "dist/web-storage-cache.min.js"
   ],
   "ignore": [
     "**/.*",
@@ -10,7 +10,7 @@
     "test",
     "tests"
   ],
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "web storage, improved.",
   "moduleType": [
     "amd",

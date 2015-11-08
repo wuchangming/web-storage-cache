@@ -1,0 +1,5 @@
+before_install:
+- npm install -g bower grunt-cli
+language: node_js
+node_js:
+  - "0.10"
