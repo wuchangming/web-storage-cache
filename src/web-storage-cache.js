@@ -60,14 +60,14 @@
     // get storage instance
     function _getStorageInstance (storage) {
         var type = typeof storage;
-        if (type === 'string') {
+        if (type === 'string' && window[storage] instanceof Storage) {
             return window[storage];
         }
         return storage;
     }
 
     function _isValidDate (date) {
-        return Object.prototype.toString.call(date) === '[object Date]' && !isNaN(date.getTime());
+        return date instanceof Date && !isNaN(date.getTime());
     }
 
     function _getExpiresDate (expires, now) {
@@ -153,11 +153,11 @@
         get: function (key) {},
 
         delete: function (key) {},
-        // try the best to clean All expires CacheItem.
+        // Try the best to clean All expires CacheItem.
         deleteAllExpires: function() {},
         // Clear all keys
         clear: function () {},
-        //Add key-value item to memcached, success only when the key is not exists in memcached.
+        // Add key-value item to memcached, success only when the key is not exists in memcached.
         add: function (key, options) {},
         // Replace the key's data item in cache, success only when the key's data item is exists in cache.
         replace: function (key, value, options) {},
@@ -195,7 +195,6 @@
     },
     get: function (key) {
         key = _checkAndWrapKeyAsString(key);
-        var valueString = this.storage.getItem(key);
         var cacheItem = null;
         try{
             cacheItem = defaultSerializer.deserialize(this.storage.getItem(key));
@@ -284,7 +283,6 @@
 
     touch: function (key, exp) {
         key = _checkAndWrapKeyAsString(key);
-        var valueString = this.storage.getItem(key);
         var cacheItem = null;
         try{
             cacheItem = defaultSerializer.deserialize(this.storage.getItem(key));
