@@ -67,7 +67,7 @@
     }
 
     function _isValidDate (date) {
-        return date instanceof Date && !isNaN(date.getTime());
+        return Object.prototype.toString.call(date) === '[object Date]' && !isNaN(date.getTime());
     }
 
     function _getExpiresDate (expires, now) {
