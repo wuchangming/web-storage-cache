@@ -33,7 +33,13 @@
     };
 
     function genCacheKey(options){
-        return options.wsCache.cacheKey || options.url.replace(/jQuery.*/,'') + options.type.toUpperCase() + (options.data || '') + (options.wsCache.version || '1.0.0');
+        var dataString = options.data;
+        try {
+            dataString = JSON.stringify(options.data);
+        } catch (e) {
+            console.error(e);
+        }
+        return options.wsCache.cacheKey || options.url.replace(/jQuery.*/,'') + options.type.toUpperCase() + (dataString || '') + (options.wsCache.version || '1.0.0');
     };
 
     $.ajaxPrefilter(function(options) {
