@@ -47,20 +47,21 @@ describe('WebStorageCache', function() {
                 expect(this.wsCache.get('testExpires')).to.be.deep.equal(value);
                 var _this = this;
                 setTimeout(function() {
-                    expect(_this.wsCache.get('testExpires') === null);
+                    console.log(_this.wsCache.get('testExpires'));
+                    expect(_this.wsCache.get('testExpires')).to.be.a('null');
                     done();
                 }, 3000);
             });
             it('should be null if set deadline is now', function() {
                 var now = new Date();
                 this.wsCache.set('testExpires', 'now', {exp: now});
-                expect(this.wsCache.get('testExpires') === null);
+                expect(this.wsCache.get('testExpires')).to.be.a('null');
             });
             it('should return value if set deadline is after one hour', function() {
                 var now = new Date();
                 var afterOneHour = new Date(now.getTime() + 1*60*60*1000);
-                this.wsCache.set('testExpires', 'afterOneHour', {exp: now});
-                expect(this.wsCache.get('testExpires') === 'afterOneHour');
+                this.wsCache.set('testExpires', 'afterOneHour', {exp: afterOneHour});
+                expect(this.wsCache.get('testExpires')).to.equal('afterOneHour');
             });
         });
 
