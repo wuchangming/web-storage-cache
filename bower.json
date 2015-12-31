@@ -10,7 +10,6 @@
     "test",
     "tests"
   ],
-  "version": "0.0.3",
   "description": "web storage, improved.",
   "moduleType": [
     "amd",
