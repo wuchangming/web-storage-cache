@@ -123,6 +123,9 @@
     }
 
     function _isCacheItem(item) {
+        if (typeof item !== 'object') {
+            return false;
+        }
         if(item) {
             if('c' in item && 'e' in item && 'v' in item) {
                 return true;

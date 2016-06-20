@@ -8,14 +8,14 @@
         "storage",
         "expires"
     ],
-    "version": "1.0.0",
+    "version": "1.0.1",
     "homepage": "https://github.com/WQTeam/web-storage-cache",
     "repository": {
         "type": "git",
         "url": "git://github.com/WQTeam/web-storage-cache.git"
     },
     "browser": "src/web-storage-cache.js",
-    "main": "src/web-storage-cache.js",
+    "main": "dist/web-storage-cache.js",
     "bugs": {
         "url": "https://github.com/WQTeam/web-storage-cache/issues"
     },
