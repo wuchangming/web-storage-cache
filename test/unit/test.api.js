@@ -7,7 +7,9 @@ describe('WebStorageCache', function() {
     'use strict';
     before(function() {
         clearStorage();
-        this.wsCache = new WebStorageCache(storage);
+        this.wsCache = new WebStorageCache({
+            storage: storage
+        });
     });
     after(function() {
         clearStorage();
@@ -27,6 +29,32 @@ describe('WebStorageCache', function() {
             expect(wsCache.touch).to.be.a('function');
             expect(wsCache.add).to.be.a('function');
             expect(wsCache.replace).to.be.a('function');
+        });
+        it('should set default expires success with number', function(done){
+            this.timeout(5000);
+            var cache = new WebStorageCache({
+                exp: 3
+            });
+            cache.set('testDefaultExpires', '1');
+            expect(cache.get('testDefaultExpires')).to.equal('1');
+            setTimeout(function() {
+                expect(cache.get('testDefaultExpires')).to.be.a('null');
+                done();
+            }, 3000);
+        });
+        it('should set default expires success with an outdate date', function(){
+            var cache = new WebStorageCache({
+                exp: new Date('1990 1 12')
+            });
+            cache.set('testDefaultExpires', '3');
+            expect(cache.get('testDefaultExpires')).to.be.a('null');
+        });
+        it('should set default expires success with an future date', function(){
+            var cache = new WebStorageCache({
+                exp: new Date('9999 1 12')
+            });
+            cache.set('testDefaultExpires', 1111);
+            expect(cache.get('testDefaultExpires')).to.equal(1111);
         });
     });
     describe('#isSupported', function() {

@@ -20,7 +20,8 @@
         "url": "https://github.com/WQTeam/web-storage-cache/issues"
     },
     "scripts": {
-        "test": "grunt test"
+        "test": "grunt test",
+        "build": "grunt build"
     },
     "devDependencies": {
         "chai": "~2.1.0",

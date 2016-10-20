@@ -16,6 +16,7 @@
     "use strict";
 
     var _maxExpireDate = new Date('Fri, 31 Dec 9999 23:59:59 UTC');
+    var _defaultExpire = _maxExpireDate;
 
     // https://github.com/jeromegn/Backbone.localStorage/blob/master/backbone.localStorage.js#L63
     var defaultSerializer = {
@@ -115,7 +116,7 @@
     function CacheItemConstructor (value, exp) {
         // createTime
         this.c = (new Date()).getTime();
-        exp = exp || _maxExpireDate;
+        exp = exp || _defaultExpire;
         var expires = _getExpiresDate(exp);
         // expiresTime
         this.e = expires.getTime();
@@ -316,6 +317,14 @@ function CacheConstructor (options) {
     };
 
     var opt = _extend(defaults, options);
+
+    var expires = opt.exp;
+
+    if (expires && typeof expires !== 'number' && !_isValidDate(expires)) {
+        throw new Error('Constructor `exp` parameter cannot be converted to a valid Date instance');
+    } else {
+        _defaultExpire = expires;
+    }
 
     var storage = _getStorageInstance(opt.storage);
 
