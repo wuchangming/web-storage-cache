@@ -6,7 +6,7 @@
 </a>
 
 `WebStorageCache` extends HTML5 `localStorage` and `sessionStorage` with adding `time expires` and `object serialization`.It's easy to set timeout for the cache data and also can save a JSON Object directly.  
-<b>optimize:</b> While access a time expires cache data, `WebStorageCache` will clear it immediately.On the other hand manually invoke `wsCache.deleteAllExpires();` can also delete all the time expires cache data.
+<b>optimize:</b> While access a time expires cache data, `WebStorageCache` will clean it immediately.On the other hand manually invoke `wsCache.deleteAllExpires();` can also delete all the time expires cache data.
 
 # Usage
 
