@@ -5,11 +5,11 @@
 <img src='https://badges.gitter.im/Join%20Chat.svg' alt='Gitter Chat' />
 </a>
 
+### Language
+ see [English Document](https://github.com/WQTeam/web-storage-cache/blob/master/README_en.md)
+
 `WebStorageCache` 对HTML5 `localStorage` `和sessionStorage` 进行了扩展，添加了超时时间，序列化方法。可以直接存储json对象，同时可以非常简单的进行超时时间的设置。  
 <b>优化</b>：`WebStorageCache`自动清除访问的过期数据，避免了过期数据的累积。另外也提供了清除全部过期数据的方法：`wsCache.deleteAllExpires();`
-
-### Language
- [English](https://github.com/WQTeam/web-storage-cache/blob/master/README_en.md)
 
 # 用法
 
