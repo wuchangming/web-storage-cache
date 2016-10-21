@@ -44,17 +44,35 @@ describe('WebStorageCache', function() {
         });
         it('should set default expires success with an outdate date', function(){
             var cache = new WebStorageCache({
-                exp: new Date('1990 1 12')
+                exp: new Date()
             });
             cache.set('testDefaultExpires', '3');
             expect(cache.get('testDefaultExpires')).to.be.a('null');
         });
         it('should set default expires success with an future date', function(){
+            var date = new Date();
+            date.setFullYear(date.getFullYear() + 1);
             var cache = new WebStorageCache({
-                exp: new Date('9999 1 12')
+                exp: date
             });
             cache.set('testDefaultExpires', 1111);
             expect(cache.get('testDefaultExpires')).to.equal(1111);
+        });
+        it('should set default storage to `localStorage` success', function(){
+            var localCache = new WebStorageCache({
+                storage: 'localStorage'
+            });
+            localCache.set('testDefaultStorge', 'asdfw2');
+            expect(localStorage.getItem('testDefaultStorge')).not.to.be.a('null');
+            expect(sessionStorage.getItem('testDefaultStorge')).to.be.a('null');
+        });
+        it('should set default storage to `sessionStorage` success', function(){
+            var localCache = new WebStorageCache({
+                storage: 'sessionStorage'
+            });
+            localCache.set('testDefaultStorage', 'sadfsadf');
+            expect(sessionStorage.getItem('testDefaultStorage')).not.to.be.a('null');
+            expect(localStorage.getItem('testDefaultStorage')).to.be.a('null');
         });
     });
     describe('#isSupported', function() {
