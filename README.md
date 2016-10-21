@@ -43,8 +43,10 @@ var wsCache = new WebStorageCache();
 // 缓存字符串'wqteam' 到 'username' 中, 超时时间100秒
 wsCache.set('username', 'wqteam', {exp : 100});
 
-// 超时截止日期 2015 5 18
-wsCache.set('username', 'wqteam', {exp : new Date('2015 5 18')});
+// 超时截止日期，可用使用Date类型
+var nextYear = new Date();
+nextYear.setFullYear(nextYear.getFullYear() + 1);
+wsCache.set('username', 'wqteam', {exp : nextYear});
 
 // 获取缓存中 'username' 的值
 wsCache.get('username');

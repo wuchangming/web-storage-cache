@@ -43,8 +43,10 @@ var wsCache = new WebStorageCache();
 // cache 'wqteam' at 'username', expired in 100 seconds
 wsCache.set('username', 'wqteam', {exp : 100});
 
-// deadline in  May 18 2015
-wsCache.set('username', 'wqteam', {exp : new Date('2015 5 18')});
+// deadline in  nextYear
+var nextYear = new Date();
+nextYear.setFullYear(nextYear.getFullYear() + 1);
+wsCache.set('username', 'wqteam', {exp : nextYear});
 
 // get 'username'
 wsCache.get('username');
