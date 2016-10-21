@@ -5,8 +5,8 @@
 <img src='https://badges.gitter.im/Join%20Chat.svg' alt='Gitter Chat' />
 </a>
 
-`WebStorageCache` extends HTML5 `localStorage` and `sessionStorage` with expires and serializer.It's easy to set timeout for the cache data and also can save the JSON Object directly.  
-<b>optimize:</b> While access a expires cache data, `WebStorageCache` will clear it immediately.On the other hand invoke `wsCache.deleteAllExpires();` can also delete all the expires cache data.
+`WebStorageCache` extends HTML5 `localStorage` and `sessionStorage` with adding `time expires` and `object serialization`.It's easy to set timeout for the cache data and also can save a JSON Object directly.  
+<b>optimize:</b> While access a time expires cache data, `WebStorageCache` will clear it immediately.On the other hand manually invoke `wsCache.deleteAllExpires();` can also delete all the time expires cache data.
 
 # Usage
 
