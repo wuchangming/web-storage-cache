@@ -12,6 +12,11 @@
 
 [Download](https://github.com/WQTeam/web-storage-cache/releases) the latest WebStorageCache from GitHub.
 
+npm
+```
+npm install web-storage-cache -save-dev
+```
+
 To use WebStorageCache, just drop a single JavaScript file into your page:
 ```html
 <script src="src/web-storage-cache.js"></script>
