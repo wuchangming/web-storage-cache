@@ -15,6 +15,11 @@
 
 [下载](https://github.com/WQTeam/web-storage-cache/releases) 最新 WebStorageCache。
 
+npm下载
+```
+npm install web-storage-cache --save-dev
+```
+
 使用WebStorageCache，只要在页面上引入下面代码即可。
 ```html
 <script src="src/web-storage-cache.js"></script>
