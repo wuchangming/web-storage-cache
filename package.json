@@ -8,7 +8,7 @@
         "storage",
         "expires"
     ],
-    "version": "1.0.3",
+    "version": "2.x.x",
     "homepage": "https://github.com/WQTeam/web-storage-cache",
     "repository": {
         "type": "git",
