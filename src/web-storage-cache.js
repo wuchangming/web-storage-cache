@@ -180,7 +180,7 @@
             if (typeof options === 'number') {
                 options = {
                     exp: options
-                }
+                };
             }
 
             options = _extend({force: true}, options);
@@ -263,7 +263,7 @@
         if (typeof options === 'number') {
             options = {
                 exp: options
-            }
+            };
         }
         options = _extend({force: true}, options);
         try {
