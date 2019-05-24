@@ -11,9 +11,9 @@ describe('WebStorageCache', function() {
             storage: storage
         });
     });
-    after(function() {
-        clearStorage();
-    });
+    // after(function() {
+    //     clearStorage();
+    // });
     describe('#Constructor', function() {
         it('Constructor should be a function', function(){
             expect(WebStorageCache).to.be.a('function');

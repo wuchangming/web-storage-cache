@@ -28,7 +28,12 @@ module.exports = function(grunt){
         },
         mocha: {
             test: {
-                src: ['test/**/*.html']
+                src: ['test/**/*.html'],
+                options: {
+                    run: true,
+                    growlOnSuccess: false,
+                    growlOnFail: false
+                }
             }
         }
     });
