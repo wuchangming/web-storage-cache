@@ -176,6 +176,13 @@
 
             key = _checkAndWrapKeyAsString(key);
 
+            // If the parameter is a number, it is treated as an expiration time.
+            if (typeof options === 'number') {
+                options = {
+                    exp: options
+                };
+            }
+
             options = _extend({force: true}, options);
 
             if (val === undefined) {
@@ -252,6 +259,12 @@
 
     add: function (key, value, options) {
         key = _checkAndWrapKeyAsString(key);
+        // If the parameter is a number, it is treated as an expiration time.
+        if (typeof options === 'number') {
+            options = {
+                exp: options
+            };
+        }
         options = _extend({force: true}, options);
         try {
             var cacheItem = defaultSerializer.deserialize(this.storage.getItem(key));
