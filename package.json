@@ -16,6 +16,7 @@
     },
     "browser": "dist/web-storage-cache.min.js",
     "main": "src/web-storage-cache.js",
+    "types": "src/web-storage-cache.d.ts",
     "bugs": {
         "url": "https://github.com/WQTeam/web-storage-cache/issues"
     },
