@@ -1,37 +1,49 @@
 {
-    "name": "web-storage-cache",
-    "author": "wuchangming",
-    "license": "MIT",
-    "description": "web storage, improved.",
-    "keywords": [
-        "localstorage",
-        "storage",
-        "expires"
-    ],
-    "version": "1.1.1",
-    "homepage": "https://github.com/WQTeam/web-storage-cache",
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/WQTeam/web-storage-cache.git"
-    },
-    "browser": "dist/web-storage-cache.min.js",
-    "main": "src/web-storage-cache.js",
-    "types": "src/web-storage-cache.d.ts",
-    "bugs": {
-        "url": "https://github.com/WQTeam/web-storage-cache/issues"
-    },
-    "scripts": {
-        "test": "grunt test",
-        "build": "grunt build"
-    },
-    "devDependencies": {
-        "chai": "^4.2.0",
-        "growl": "^1.10.5",
-        "grunt": "^1.0.4",
-        "grunt-contrib-jshint": "~0.11.0",
-        "grunt-contrib-uglify": "~0.8.0",
-        "grunt-contrib-watch": "~0.5.0",
-        "grunt-mocha": "^1.2.0",
-        "mocha": "^6.1.4"
+  "name": "in-memory-cache",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "ts-node ./lib/inMemoryCache.ts",
+    "build": "tsc",
+    "dev":"node ./dist/inMemoryCache.js",
+    "test": "mocha --require ts-node/register --watch-extensions ts,tsx 'test/**/*.ts'",
+    "lint": "npm-run-all lint:*",
+    "lint:ts": "tslint \"{lib/**/*,test/**/*}.ts\" -p tsconfig.json",
+    "lint:prettier": "prettier \"{lib/**/*,test/**/*}.ts\" --list-different",
+    "fix": "npm-run-all fix:*",
+    "fix:ts": "npm run lint:ts -- --fix",
+    "fix:prettier": "prettier \"{lib/**/*,test/**/*}.ts\" --write"
+  },
+  "lint-staged": {
+    "linters": {
+      "{lib,test}/**/*.{js,ts,tsx}": [
+        "prettier",
+        "tslint -p tsconfig.json"
+      ]
     }
+  },
+  "private": true,
+  "pre-push": [
+    "validate"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "dependencies": {
+    "typescript": "^3.6.4"
+  },
+  "devDependencies": {
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.12.3",
+    "husky": "^3.0.9",
+    "lint-staged": "^9.4.2",
+    "mocha": "^6.2.2",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.18.2",
+    "ts-node": "^8.4.1",
+    "tslint": "^5.20.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-microsoft-contrib": "^6.2.0"
+  }
 }

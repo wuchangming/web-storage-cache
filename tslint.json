@@ -1,0 +1,10 @@
+{
+  "extends": [
+    "tslint-microsoft-contrib/latest",
+    "tslint-config-prettier"
+  ],
+  "rules": {
+    "no-backbone-get-set-outside-model": false,
+    "no-relative-imports":false
+  }
+}
