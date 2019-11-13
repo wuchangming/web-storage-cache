@@ -299,20 +299,10 @@
     },
 
     touch: function (key, exp) {
-        key = _checkAndWrapKeyAsString(key);
-        var cacheItem = null;
-        try{
-            cacheItem = defaultSerializer.deserialize(this.storage.getItem(key));
-        }catch(e){
-            return false;
-        }
-        if(_isCacheItem(cacheItem)){
-            if(_checkCacheItemIfEffective(cacheItem)) {
-                this.set(key, this.get(key), {exp: exp});
-                return true;
-            } else {
-                this.delete(key);
-            }
+        var value = this.get(key);
+        if(value!==null){
+            this.set(key, value, {exp: exp});
+            return true;
         }
         return false;
     }
