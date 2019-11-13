@@ -1,5 +1,5 @@
 declare module 'web-storage-cache' {
-  class WebStorageCache {
+  class WebStorageCache<T = { [propname: string]: any }> {
     /**
      * WebStorageCache 对 HTML5 `localStorage` 和 `sessionStorage` 进行了扩展，添加了超时时间，序列化方法。可以直接存储 json 对象，同时可以非常简单的进行超时时间的设置。
      * **优化**：WebStorageCache 自动清除访问的过期数据，避免了过期数据的累积。另外也提供了清除全部过期数据的方法：`wsCache.deleteAllExpires()`
@@ -17,22 +17,22 @@ declare module 'web-storage-cache' {
      * @param value 支持所以可以JSON.parse 的类型。注：当为undefined的时候会执行 delete(key)操作。
      * @param options
      */
-    set(key: string, value: any, options?: Partial<WebStorageCacheOptions>): void
+    set(key: string, value: T, options?: Partial<WebStorageCacheOptions>): T | string
 
     /**
      * 根据key获取缓存中未超时数据。返回相应类型String、Boolean、PlainObject、Array的值。
      */
-    get(key: string): any
+    get(key: string): T | null
 
     /**
      * 根据key删除缓存中的值
      */
-    delete(key: string): void
+    delete(key: string): string
 
     /**
      * 删除缓存中所有通过WebStorageCache存储的超时值
      */
-    deleteAllExpires(): void
+    deleteAllExpires(): T[]
 
     /**
      * 清空缓存中全部的值
@@ -45,7 +45,7 @@ declare module 'web-storage-cache' {
      * @param key
      * @param exp 单位：秒 js对象包含exp属性（以当前时间为起点的新的超时时间）
      */
-    touch(key: string, exp: number): void
+    touch(key: string, exp: number): boolean
 
     /**
      * 根据key做插入操作，如果key对应的值不存在或者已超时则插入该值，反之什么都不做。
@@ -55,7 +55,7 @@ declare module 'web-storage-cache' {
      * @param value
      * @param options
      */
-    add(key: string, value: any, options?: Partial<WebStorageCacheOptions>): void
+    add(key: string, value: T, options?: Partial<WebStorageCacheOptions>): boolean
 
     /**
      * 根据key做插入操作，如果key对应的值存在并且未超时则插入该值，反之什么都不做
@@ -65,7 +65,7 @@ declare module 'web-storage-cache' {
      * @param value
      * @param options
      */
-    replace(key: string, value: any, options?: Partial<WebStorageCacheOptions>): void
+    replace(key: string, value: T, options?: Partial<WebStorageCacheOptions>): boolean
   }
 
   interface WebStorageCacheOptions {
